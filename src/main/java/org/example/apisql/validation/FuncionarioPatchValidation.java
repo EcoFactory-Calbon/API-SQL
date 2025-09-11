@@ -1,5 +1,6 @@
 package org.example.apisql.validation;
 
+import org.example.apisql.exception.DadosInvalidosException;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
