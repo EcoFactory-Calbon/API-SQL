@@ -1,6 +1,7 @@
 package org.example.apisql.exception;
 
 
+import org.example.apisql.model.Admin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +20,14 @@ public class ManipuladorGlobalException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("Funcionario não encontrado "+ex.getMessage());
     }
+    @ExceptionHandler(AdminNaoEncotradoException.class)
+    public ResponseEntity<String> manipuladorAdminNaoEncontradoException(AdminNaoEncotradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Admin não encontrado "+ex.getMessage());
+    }
+
+
+
 
 
 }
