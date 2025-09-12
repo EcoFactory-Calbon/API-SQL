@@ -14,11 +14,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Java
+      - name: Setup Java 21
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
+          cache: maven
+
+      - name: Verificar versão do Java
+        run: java -version && javac -version
 
       - name: Build com Maven
-        run: mvn clean install -DskipTests
+        run: mvn -e -X clean install -DskipTests
