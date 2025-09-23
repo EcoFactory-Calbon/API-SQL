@@ -60,6 +60,7 @@ public class FuncionarioService {
     }
 
 
+
     public FuncionarioResponseDTO inserirFuncionario(FuncionarioRequestDTO dto) {
         Funcionario funcionario = fromRequestDTO(dto);
         Funcionario salvo = funcionarioRepository.save(funcionario);
@@ -104,7 +105,7 @@ public class FuncionarioService {
             existente.setEmail(updates.get("email").toString());
         }
         if (updates.containsKey("numero_cracha")) {
-            existente.setNumero_cracha(updates.get("numero_cracha").toString());
+            existente.setNumero_cracha(Long.valueOf(updates.get("numero_cracha").toString()));
         }
         if (updates.containsKey("id_cargo")) {
             existente.setId_cargo(Long.parseLong(updates.get("id_cargo").toString()));

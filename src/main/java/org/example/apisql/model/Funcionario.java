@@ -16,7 +16,7 @@ public class Funcionario {
 
     private String senha;
 
-    private String numero_cracha;
+    private Long numero_cracha;
 
     private Long id_cargo;
 
@@ -26,7 +26,7 @@ public class Funcionario {
 
     public Funcionario() {}
 
-    public Funcionario(Long id, String nome, String sobrenome, String email, String senha, String numero_cracha, Long id_cargo, Long id_localizacao, Boolean is_gestor) {
+    public Funcionario(Long id, String nome, String sobrenome, String email, String senha, Long numero_cracha, Long id_cargo, Long id_localizacao, Boolean is_gestor) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -59,7 +59,7 @@ public class Funcionario {
         return senha;
     }
 
-    public String getNumero_cracha() {
+    public Long getNumero_cracha() {
         return numero_cracha;
     }
 
@@ -91,7 +91,7 @@ public class Funcionario {
         this.senha = senha;
     }
 
-    public void setNumero_cracha(String numero_cracha) {
+    public void setNumero_cracha(Long numero_cracha) {
         this.numero_cracha = numero_cracha;
     }
 
