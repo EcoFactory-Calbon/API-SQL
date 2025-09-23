@@ -5,13 +5,13 @@ public class FuncionarioResponseDTO {
     private String nome;
     private String sobrenome;
     private String email;
-    private String numero_cracha;
+    private Long numero_cracha;
     private Boolean is_gestor;
 
 
     public FuncionarioResponseDTO() {}
 
-    public FuncionarioResponseDTO(Long id, String nome, String sobrenome, String email, String numero_cracha, Boolean is_gestor) {
+    public FuncionarioResponseDTO(Long id, String nome, String sobrenome, String email, Long numero_cracha, Boolean is_gestor) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -52,11 +52,11 @@ public class FuncionarioResponseDTO {
         this.email = email;
     }
 
-    public String getNumero_cracha() {
+    public Long getNumero_cracha() {
         return numero_cracha;
     }
 
-    public void setNumero_cracha(String numero_cracha) {
+    public void setNumero_cracha(Long numero_cracha) {
         this.numero_cracha = numero_cracha;
     }
 

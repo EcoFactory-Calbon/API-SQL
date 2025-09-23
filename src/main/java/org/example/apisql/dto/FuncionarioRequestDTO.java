@@ -20,7 +20,7 @@ public class FuncionarioRequestDTO {
     private String senha;
 
     @NotNull(message = "Numero do cracha não pode estar vazio")
-    private String numero_cracha;
+    private Long numero_cracha;
 
     private Long id_cargo;
 
@@ -69,11 +69,11 @@ public class FuncionarioRequestDTO {
         this.senha = senha;
     }
 
-    public @NotNull(message = "Numero do cracha não pode estar vazio") String getNumero_cracha() {
+    public @NotNull(message = "Numero do cracha não pode estar vazio") Long getNumero_cracha() {
         return numero_cracha;
     }
 
-    public void setNumero_cracha(@NotNull(message = "Numero do cracha não pode estar vazio") String numero_cracha) {
+    public void setNumero_cracha(@NotNull(message = "Numero do cracha não pode estar vazio") Long numero_cracha) {
         this.numero_cracha = numero_cracha;
     }
 

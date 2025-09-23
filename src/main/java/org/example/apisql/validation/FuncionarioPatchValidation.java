@@ -36,7 +36,7 @@ public class FuncionarioPatchValidation {
             }
         }
         if (updates.containsKey("id_cargo")) {
-            String id_cargo = updates.get("numero_cracha").toString();
+            String id_cargo = updates.get("id_cargo").toString();
             if (id_cargo.isBlank()) {
                 erros.put("id_cargo", "id_cargo não pode ser vazio");
             }
