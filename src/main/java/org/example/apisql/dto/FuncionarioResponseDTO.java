@@ -1,7 +1,6 @@
 package org.example.apisql.dto;
 
 public class FuncionarioResponseDTO {
-    private Long id;
     private String nome;
     private String sobrenome;
     private String email;
@@ -11,21 +10,24 @@ public class FuncionarioResponseDTO {
 
     public FuncionarioResponseDTO() {}
 
-    public FuncionarioResponseDTO(Long id, String nome, String sobrenome, String email, Long numero_cracha, Boolean is_gestor) {
-        this.id = id;
+    public FuncionarioResponseDTO(Long numero_cracha, String nome, String sobrenome, String email, Boolean is_gestor) {
+        this.numero_cracha = numero_cracha;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
-        this.numero_cracha = numero_cracha;
         this.is_gestor = is_gestor;
     }
 
-    public Long getId() {
-        return id;
+    public FuncionarioResponseDTO(String nome, String sobrenome, String email, Long numeroCracha, Boolean isGestor) {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+
+    public Long getNumero_cracha() {
+        return numero_cracha;
+    }
+
+    public void setNumero_cracha(Long numero_cracha) {
+        this.numero_cracha = numero_cracha;
     }
 
     public String getNome() {
@@ -52,13 +54,6 @@ public class FuncionarioResponseDTO {
         this.email = email;
     }
 
-    public Long getNumero_cracha() {
-        return numero_cracha;
-    }
-
-    public void setNumero_cracha(Long numero_cracha) {
-        this.numero_cracha = numero_cracha;
-    }
 
     public Boolean getIs_gestor() {
         return is_gestor;

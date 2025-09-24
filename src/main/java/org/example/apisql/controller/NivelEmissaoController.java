@@ -23,7 +23,7 @@ public class NivelEmissaoController {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<NivelEmissoesResponseDTO>> listarAdmin() {
+    public ResponseEntity<List<NivelEmissoesResponseDTO>> listarNivel() {
         List<NivelEmissoesResponseDTO> nivelEmissoes = nivelEmissoesService.listar();
         return ResponseEntity.ok(nivelEmissoes);
     }

@@ -32,6 +32,12 @@ public class ManipuladorGlobalException {
                 .body("Empresa não encontrada "+ex.getMessage());
     }
 
+    @ExceptionHandler(NivelEmissaoNaoEncontradoException.class)
+    public ResponseEntity<String> manipuladorNivelEmissaoNaoEncontradoException(NivelEmissaoNaoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Nivel_Emissao não encontrado "+ex.getMessage());
+    }
+
 
 
 
