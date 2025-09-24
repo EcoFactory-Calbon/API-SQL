@@ -4,7 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class FuncionarioRequestDTO {
-    private Long id;
+    @NotNull(message = "Numero do cracha não pode estar vazio")
+    private Long numero_cracha;
 
     @NotNull(message = "Nome não pode estar vazio")
     private String nome;
@@ -19,8 +20,6 @@ public class FuncionarioRequestDTO {
     @Size(min = 8, message = "Senha deve ter no minimo 8 caracteres")
     private String senha;
 
-    @NotNull(message = "Numero do cracha não pode estar vazio")
-    private Long numero_cracha;
 
     private Long id_cargo;
 
@@ -29,12 +28,12 @@ public class FuncionarioRequestDTO {
     private Boolean is_gestor;
 
 
-    public Long getId() {
-        return id;
+    public Long getNumero_cracha() {
+        return numero_cracha;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNumero_cracha(@NotNull(message = "Numero do cracha não pode estar vazio") Long numero_cracha) {
+        this.numero_cracha = numero_cracha;
     }
 
     public @NotNull(message = "Nome não pode estar vazio") String getNome() {
@@ -69,13 +68,6 @@ public class FuncionarioRequestDTO {
         this.senha = senha;
     }
 
-    public @NotNull(message = "Numero do cracha não pode estar vazio") Long getNumero_cracha() {
-        return numero_cracha;
-    }
-
-    public void setNumero_cracha(@NotNull(message = "Numero do cracha não pode estar vazio") Long numero_cracha) {
-        this.numero_cracha = numero_cracha;
-    }
 
     public Long getId_cargo() {
         return id_cargo;

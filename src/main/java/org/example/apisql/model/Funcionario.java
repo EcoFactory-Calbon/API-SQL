@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Funcionario {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long numero_cracha;
 
     private String nome;
 
@@ -16,8 +15,6 @@ public class Funcionario {
 
     private String senha;
 
-    private Long numero_cracha;
-
     private Long id_cargo;
 
     private Long id_localizacao;
@@ -26,23 +23,25 @@ public class Funcionario {
 
     public Funcionario() {}
 
-    public Funcionario(Long id, String nome, String sobrenome, String email, String senha, Long numero_cracha, Long id_cargo, Long id_localizacao, Boolean is_gestor) {
-        this.id = id;
+    public Funcionario(String nome, String sobrenome, String email, String senha, Long numero_cracha, Long id_cargo, Long id_localizacao, Boolean is_gestor) {
+        this.numero_cracha = numero_cracha;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
         this.senha = senha;
-        this.numero_cracha = numero_cracha;
         this.id_cargo = id_cargo;
         this.id_localizacao = id_localizacao;
         this.is_gestor = is_gestor;
     }
 
 
-    public Long getId() {
-        return id;
+    public Long getNumero_cracha() {
+        return numero_cracha;
     }
 
+    public void setNumero_cracha(Long numero_cracha) {
+        this.numero_cracha = numero_cracha;
+    }
     public String getNome() {
         return nome;
     }
@@ -57,10 +56,6 @@ public class Funcionario {
 
     public String getSenha() {
         return senha;
-    }
-
-    public Long getNumero_cracha() {
-        return numero_cracha;
     }
 
     public Long getId_cargo() {
@@ -91,9 +86,6 @@ public class Funcionario {
         this.senha = senha;
     }
 
-    public void setNumero_cracha(Long numero_cracha) {
-        this.numero_cracha = numero_cracha;
-    }
 
     public void setId_cargo(Long id_cargo) {
         this.id_cargo = id_cargo;
@@ -110,12 +102,11 @@ public class Funcionario {
     @Override
     public String toString() {
         return "Funcionario{" +
-                "id=" + id +
+                " numero_cracha='" + numero_cracha + '\'' +
                 ", nome='" + nome + '\'' +
                 ", sobrenome='" + sobrenome + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
-                ", numero_cracha='" + numero_cracha + '\'' +
                 ", id_cargo=" + id_cargo +
                 ", id_localizacao=" + id_localizacao +
                 ", is_gestor="+ is_gestor +

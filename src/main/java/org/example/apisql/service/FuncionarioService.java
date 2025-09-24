@@ -42,7 +42,6 @@ public class FuncionarioService {
 
     private FuncionarioResponseDTO toResponseDTO(Funcionario funcionario) {
         return new FuncionarioResponseDTO(
-                funcionario.getId(),
                 funcionario.getNome(),
                 funcionario.getSobrenome(),
                 funcionario.getEmail(),
@@ -74,13 +73,12 @@ public class FuncionarioService {
     }
 
 
-    public FuncionarioResponseDTO atualizarFuncionario(@Valid FuncionarioRequestDTO funcionarioAtualizado, Long id) {
-        Funcionario existente = funcionarioRepository.findById(id)
-                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionario com o id " + id + " não encontrado"));
+    public FuncionarioResponseDTO atualizarFuncionario(@Valid FuncionarioRequestDTO funcionarioAtualizado, Long numero_cracha) {
+        Funcionario existente = funcionarioRepository.findById(numero_cracha)
+                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionario com o cracha " + numero_cracha + " não encontrado"));
         existente.setNome(funcionarioAtualizado.getNome());
         existente.setSobrenome(funcionarioAtualizado.getSobrenome());
         existente.setEmail(funcionarioAtualizado.getEmail());
-        existente.setNumero_cracha(funcionarioAtualizado.getNumero_cracha());
         existente.setId_cargo(funcionarioAtualizado.getId_cargo());
         existente.setIs_gestor(funcionarioAtualizado.getIs_gestor());
 
@@ -103,9 +101,6 @@ public class FuncionarioService {
         }
         if (updates.containsKey("email")) {
             existente.setEmail(updates.get("email").toString());
-        }
-        if (updates.containsKey("numero_cracha")) {
-            existente.setNumero_cracha(Long.valueOf(updates.get("numero_cracha").toString()));
         }
         if (updates.containsKey("id_cargo")) {
             existente.setId_cargo(Long.parseLong(updates.get("id_cargo").toString()));

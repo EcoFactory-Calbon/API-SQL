@@ -5,12 +5,11 @@ import jakarta.validation.constraints.NotNull;
 public class NivelEmissoesRequestDTO {
 
     private Long id;
+    private Long numero_cracha_funcionario;
     @NotNull(message = "Nivel de emissão não pode ser Nulo")
     private String nivel_emissao;
     @NotNull(message = "Valor de emissão não pode ser Nulo")
     private Double valor_emissao;
-    @NotNull(message = "Quantidade de emissão não pode ser Nulo")
-    private String quantidade_emissao;
     @NotNull(message = "id_formulario não pode ser Nulo")
     private Long id_formulario;
 
@@ -38,12 +37,12 @@ public class NivelEmissoesRequestDTO {
         this.valor_emissao = valor_emissao;
     }
 
-    public String getQuantidade_emissao() {
-        return quantidade_emissao;
+    public Long getNumero_cracha_funcionario() {
+        return numero_cracha_funcionario;
     }
 
-    public void setQuantidade_emissao(String quantidade_emissao) {
-        this.quantidade_emissao = quantidade_emissao;
+    public void setNumero_cracha_funcionario(Long numero_cracha_funcionario) {
+        this.numero_cracha_funcionario = numero_cracha_funcionario;
     }
 
     public Long getId_formulario() {
