@@ -4,6 +4,7 @@ package org.example.apisql.controller;
 import jakarta.validation.Valid;
 import org.example.apisql.dto.AdminRequestDTO;
 import org.example.apisql.dto.AdminResponseDTO;
+import org.example.apisql.openapi.AdminOpenApi;
 import org.example.apisql.service.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController implements AdminOpenApi {
 
     private final AdminService adminService;
 
