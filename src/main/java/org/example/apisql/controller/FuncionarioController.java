@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.example.apisql.dto.FuncionarioRequestDTO;
 import org.example.apisql.dto.FuncionarioResponseDTO;
 import org.example.apisql.model.Funcionario;
+import org.example.apisql.openapi.FuncionarioOpenApi;
 import org.example.apisql.service.FuncionarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/funcionario")
-public class FuncionarioController {
+public class FuncionarioController implements FuncionarioOpenApi {
     private final FuncionarioService funcionarioService;
 
     public FuncionarioController( FuncionarioService funcionarioService) {
