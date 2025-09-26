@@ -2,6 +2,7 @@ package org.example.apisql.controller;
 import jakarta.validation.Valid;
 import org.example.apisql.dto.EmpresaRequestDTO;
 import org.example.apisql.dto.EmpresaResponseDTO;
+import org.example.apisql.openapi.EmpresaOpenApi;
 import org.example.apisql.service.EmpresaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/empresa")
-public class EmpresaController {
+public class EmpresaController implements EmpresaOpenApi {
 
     private final EmpresaService empresaService;
     public EmpresaController(EmpresaService empresaService) {
