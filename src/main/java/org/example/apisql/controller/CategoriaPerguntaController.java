@@ -1,18 +1,16 @@
 package org.example.apisql.controller;
 
 import org.example.apisql.dto.CategoriaPerguntaResponseDTO;
-import org.example.apisql.dto.EmpresaResponseDTO;
+import org.example.apisql.openapi.CategoriaPerguntaOpenApi;
 import org.example.apisql.service.CategoriaPerguntaService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/categoria-pergunta")
-public class CategoriaPerguntaController {
+public class CategoriaPerguntaController implements CategoriaPerguntaOpenApi {
 
     private final CategoriaPerguntaService categoriaPerguntaService;
 
