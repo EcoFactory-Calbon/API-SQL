@@ -18,7 +18,6 @@ public class AdminResponseDTO {
         this.nome = nome;
     }
 
-    // Getters e Setters
     public String getNome() {
         return nome;
     }

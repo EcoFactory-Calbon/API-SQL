@@ -33,7 +33,6 @@ public class FuncionarioResponseDTO {
     public FuncionarioResponseDTO(String nome, String sobrenome, String email, Long numeroCracha, Boolean isGestor) {
     }
 
-    // Getters e Setters ...
     public Long getNumero_cracha() {
         return numero_cracha;
     }

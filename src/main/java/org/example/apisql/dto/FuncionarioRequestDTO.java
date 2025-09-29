@@ -38,7 +38,6 @@ public class FuncionarioRequestDTO {
     @Schema(description = "Define se o funcionário é gestor", example = "true")
     private Boolean is_gestor;
 
-    // Getters e Setters ...
     public Long getNumero_cracha() {
         return numero_cracha;
     }

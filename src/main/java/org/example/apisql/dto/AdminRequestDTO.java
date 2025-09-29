@@ -26,7 +26,6 @@ public class AdminRequestDTO {
     @Schema(description = "Senha de acesso do administrador (mínimo 8 caracteres)", example = "senhaForte123")
     private String senha;
 
-    // Getters e Setters
     public String getEmail() {
         return email;
     }
