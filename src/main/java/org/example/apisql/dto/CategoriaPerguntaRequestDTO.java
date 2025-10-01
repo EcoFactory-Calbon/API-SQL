@@ -5,14 +5,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Objeto de requisição para criar ou atualizar categoria de pergunta")
 public class CategoriaPerguntaRequestDTO {
 
-    @Schema(description = "Texto da pergunta da categoria", example = "Qual o impacto ambiental?")
-    private String pergunta;
+    @Schema(description = "Texto da categoria", example = "Transporte")
+    private String categoria;
 
-    public String getPergunta() {
-        return pergunta;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setPergunta(String pergunta) {
-        this.pergunta = pergunta;
+    public void setCategoria(String pergunta) {
+        this.categoria = categoria;
     }
 }

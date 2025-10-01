@@ -39,6 +39,11 @@ public class ManipuladorGlobalException {
     }
 
 
+    @ExceptionHandler(CategoriaPerguntaNaoEncontradaException.class)
+    public ResponseEntity<String> manipuladorCategoriaPerguntaNaoEncontradaException(CategoriaPerguntaNaoEncontradaException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Categoria de Pergunta não encontrada "+ex.getMessage());
+    }
 
 
 
