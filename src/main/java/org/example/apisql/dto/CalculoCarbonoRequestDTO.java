@@ -6,6 +6,9 @@ public class CalculoCarbonoRequestDTO {
     @NotNull(message = "id_categoriaPergunta não pode ser nulo")
     private Integer id_CategoriaPergunta;
 
+    private Integer valor;
+
+
     public @NotNull(message = "id_categoriaPergunta não pode ser nulo") Integer getId_CategoriaPergunta() {
         return id_CategoriaPergunta;
     }
@@ -14,5 +17,11 @@ public class CalculoCarbonoRequestDTO {
         this.id_CategoriaPergunta = id_CategoriaPergunta;
     }
 
+    public Integer getValor() {
+        return valor;
+    }
 
+    public void setValor(Integer valor) {
+        this.valor = valor;
+    }
 }

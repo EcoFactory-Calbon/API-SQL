@@ -21,8 +21,8 @@ public class CalculoCarbonoController {
 
 
     @PostMapping("/calcular")
-    public CalculoCarbonoResponseDTO calcular(@RequestBody CalculoCarbonoRequestDTO request) {
-        return service.calcular(request);
+    public CalculoCarbonoResponseDTO calcular(CalculoCarbonoRequestDTO dto) {
+        return service.calcular(dto);
     }
 }
 
