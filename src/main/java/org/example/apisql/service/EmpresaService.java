@@ -14,11 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class EmpresaService {
     private final EmpresaRepository empresaRepository;
-    private final ObjectMapper objectMapper;
 
     public EmpresaService(EmpresaRepository empresaRepository, ObjectMapper objectMapper) {
         this.empresaRepository = empresaRepository;
-        this.objectMapper = objectMapper;
     }
 
 

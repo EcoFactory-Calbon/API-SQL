@@ -10,6 +10,7 @@ import org.example.apisql.dto.FuncionarioRequestDTO;
 import org.example.apisql.dto.FuncionarioResponseDTO;
 import org.example.apisql.model.Funcionario;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,25 @@ public interface FuncionarioOpenApi {
                             schema = @Schema(implementation = FuncionarioResponseDTO.class)))
     })
     ResponseEntity<List<FuncionarioResponseDTO>> listarAdmin();
+
+
+
+    @Operation(
+            summary = "Busca funcionário(s) pelo crachá",
+            description = "Retorna uma lista de funcionários que correspondem ao número do crachá fornecido."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = FuncionarioResponseDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Nenhum funcionário encontrado com o crachá informado",
+                    content = @Content)
+    })
+    ResponseEntity<List<FuncionarioResponseDTO>> buscarCracha(
+            @Parameter(description = "Número do crachá do funcionário a ser buscado", required = true, example = "12345")
+            @PathVariable Long cracha);
+
+
 
     @Operation(
             summary = "Adiciona um novo funcionário",

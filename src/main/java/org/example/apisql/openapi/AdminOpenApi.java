@@ -26,7 +26,21 @@ public interface AdminOpenApi {
                     array = @ArraySchema(schema = @Schema(implementation = AdminResponseDTO.class))))
     ResponseEntity<List<AdminResponseDTO>> listarAdmin();
 
-    @Operation(summary = "Cria um novo administrador", description = "Cadastra um novo administrador no sistema.")
+
+    @Operation(summary = "Busca administrador por e-mail",
+            description = "Retorna uma lista de administradores que correspondem ao e-mail fornecido.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação bem-sucedida",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = AdminResponseDTO.class)))),
+            @ApiResponse(responseCode = "404", description = "Administrador não encontrado", content = @Content)
+    })
+    ResponseEntity<List<AdminResponseDTO>> buscarPorEmail(
+            @Parameter(description = "E-mail do administrador a ser buscado", required = true, example = "usuario@example.com")
+            @PathVariable String email);
+
+
+        @Operation(summary = "Cria um novo administrador", description = "Cadastra um novo administrador no sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Administrador criado com sucesso",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = AdminResponseDTO.class))),

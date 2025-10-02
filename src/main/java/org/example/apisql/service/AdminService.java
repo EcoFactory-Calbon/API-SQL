@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,13 +21,10 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
     private final AdminPatchValidation adminPatchValidation;
-    private final ObjectMapper objectMapper;
 
-    public AdminService(AdminRepository adminRepository, ObjectMapper objectMapper, AdminPatchValidation adminPatchValidation) {
+    public AdminService(AdminRepository adminRepository, AdminPatchValidation adminPatchValidation) {
         this.adminRepository = adminRepository;
-        this.adminPatchValidation = adminPatchValidation;
-        this.objectMapper = objectMapper;
-    }
+        this.adminPatchValidation = adminPatchValidation;}
 
     private Admin fromRequestDTO(AdminRequestDTO dto){
         Admin admin = new Admin();
@@ -47,6 +45,14 @@ public class AdminService {
     public List<AdminResponseDTO> listar() {
         return adminRepository.findAll()
                 .stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+
+    public List<AdminResponseDTO> buscarPorEmail(String email) {
+        Optional<Admin> admins = adminRepository.findByEmail(email);
+        return admins.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
     }

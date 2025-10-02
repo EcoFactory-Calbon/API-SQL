@@ -29,6 +29,11 @@ public class AdminController implements AdminOpenApi {
         return ResponseEntity.ok(admins);
     }
 
+    @GetMapping("/buscarEmail/{email}")
+    public ResponseEntity<List<AdminResponseDTO>> buscarPorEmail(@PathVariable String email) {
+        return ResponseEntity.ok(adminService.buscarPorEmail(email));
+    }
+
     @PostMapping("/inserir")
     public ResponseEntity<AdminResponseDTO> adicionarAdmin(@RequestBody @Valid AdminRequestDTO dto) {
         AdminResponseDTO response = adminService.inserirAdmin(dto);

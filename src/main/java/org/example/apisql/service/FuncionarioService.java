@@ -12,19 +12,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
-    private final ObjectMapper objectMapper;
     private final FuncionarioPatchValidation funcionarioPatchValidation;
 
 
-    public FuncionarioService(FuncionarioRepository funcionarioRepository, ObjectMapper objectMapper, FuncionarioPatchValidation funcionarioPatchValidation) {
+    public FuncionarioService(FuncionarioRepository funcionarioRepository, FuncionarioPatchValidation funcionarioPatchValidation) {
         this.funcionarioRepository = funcionarioRepository;
-        this.objectMapper = objectMapper;
         this.funcionarioPatchValidation = funcionarioPatchValidation;
     }
 
@@ -58,6 +57,12 @@ public class FuncionarioService {
                 .collect(Collectors.toList());
     }
 
+    public List<FuncionarioResponseDTO> buscarPorCracha(Long numero_cracha) {
+        Optional<Funcionario> funcionarios = funcionarioRepository.findById(numero_cracha);
+        return funcionarios.stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
 
 
     public FuncionarioResponseDTO inserirFuncionario(FuncionarioRequestDTO dto) {

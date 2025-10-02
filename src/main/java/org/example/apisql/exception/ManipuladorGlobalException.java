@@ -4,8 +4,11 @@ package org.example.apisql.exception;
 import org.example.apisql.model.Admin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.HashMap;
 
 @ControllerAdvice
 public class ManipuladorGlobalException {
@@ -38,6 +41,33 @@ public class ManipuladorGlobalException {
                 .body("Nivel_Emissao não encontrado "+ex.getMessage());
     }
 
+    @ExceptionHandler(CategoriaPerguntaNaoEncontradaException.class)
+    public ResponseEntity<String> manipuladorCategoriaPerguntaNaoEncontradaException(CategoriaPerguntaNaoEncontradaException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("CategoriaPergunta não encontrada "+ex.getMessage());
+    }
+
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> manipulaRuntimeException(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Erro de execução: " + ex.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> manipulaException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Erro inesperado: " + ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<HashMap<Object, Object>> manipularMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        HashMap<Object, Object> erros = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error -> {
+            erros.put(error.getField(), error.getDefaultMessage());
+        });
+        return ResponseEntity.badRequest().body(erros);
+    }
 
 
 

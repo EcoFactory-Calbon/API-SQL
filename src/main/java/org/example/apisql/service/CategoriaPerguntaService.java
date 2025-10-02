@@ -1,10 +1,11 @@
 package org.example.apisql.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.apisql.dto.CategoriaPerguntaRequestDTO;
-import org.example.apisql.dto.CategoriaPerguntaResponseDTO;
-import org.example.apisql.dto.FuncionarioResponseDTO;
+import org.example.apisql.dto.*;
+import org.example.apisql.exception.CategoriaPerguntaNaoEncontradaException;
+import org.example.apisql.exception.EmpresaNaoEncontradaException;
 import org.example.apisql.model.CategoriaPergunta;
+import org.example.apisql.model.Empresa;
 import org.example.apisql.model.Funcionario;
 import org.example.apisql.repository.CategoriaPerguntaRepository;
 import org.springframework.stereotype.Service;
@@ -16,18 +17,16 @@ import java.util.stream.Collectors;
 public class CategoriaPerguntaService {
 
     private final CategoriaPerguntaRepository categoriaPerguntaRepository;
-    private final ObjectMapper objectMapper;
 
-    public CategoriaPerguntaService(CategoriaPerguntaRepository categoriaPerguntaRepository, ObjectMapper objectMapper) {
+    public CategoriaPerguntaService(CategoriaPerguntaRepository categoriaPerguntaRepository) {
         this.categoriaPerguntaRepository = categoriaPerguntaRepository;
-        this.objectMapper = objectMapper;
     }
 
 
     private CategoriaPergunta fromRequestDTO(CategoriaPerguntaRequestDTO dto) {
         CategoriaPergunta categoria = new CategoriaPergunta();
 
-        categoria.setCategoria(dto.getPergunta());
+        categoria.setCategoria(dto.getCategoria());
         return categoria;
     }
 
@@ -44,6 +43,18 @@ public class CategoriaPerguntaService {
                 .stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    public CategoriaPerguntaResponseDTO inserirCategoriaPergunta(CategoriaPerguntaRequestDTO dto) {
+        CategoriaPergunta categoriaPergunta = fromRequestDTO(dto);
+        CategoriaPergunta salvo = categoriaPerguntaRepository.save(categoriaPergunta);
+        return toResponseDTO(salvo);
+    }
+
+    public void excluirCategoriaEmpresa(Integer id) {
+        CategoriaPergunta categoriaPergunta = categoriaPerguntaRepository.findById(id)
+                .orElseThrow(() -> new CategoriaPerguntaNaoEncontradaException("Categoria com id: "+ id +" não foi encontrado"));
+        categoriaPerguntaRepository.delete(categoriaPergunta);
     }
 
 

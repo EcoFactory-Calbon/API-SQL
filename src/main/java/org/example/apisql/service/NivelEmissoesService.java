@@ -17,11 +17,9 @@ import java.util.stream.Collectors;
 public class NivelEmissoesService {
 
     private final NivelEmissoesRepository nivelEmissoesRepository;
-    private final ObjectMapper objectMapper;
 
-    public NivelEmissoesService(NivelEmissoesRepository nivelEmissoesRepository, ObjectMapper objectMapper) {
+    public NivelEmissoesService(NivelEmissoesRepository nivelEmissoesRepository) {
         this.nivelEmissoesRepository = nivelEmissoesRepository;
-        this.objectMapper = objectMapper;
     }
 
     private NivelEmissoes fromRequestDTO(NivelEmissoesRequestDTO dto) {
