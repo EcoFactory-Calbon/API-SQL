@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 @Entity
 public class Funcionario {
     @Id
-    private Long numero_cracha;
+    @Column(name = "numero_cracha") // This line tells JPA the database column name
+    private Long numeroCracha;
 
     private String nome;
 
@@ -23,8 +24,8 @@ public class Funcionario {
 
     public Funcionario() {}
 
-    public Funcionario(String nome, String sobrenome, String email, String senha, Long numero_cracha, Long id_cargo, Long id_localizacao, Boolean is_gestor) {
-        this.numero_cracha = numero_cracha;
+    public Funcionario(String nome, String sobrenome, String email, String senha, Long numeroCracha, Long id_cargo, Long id_localizacao, Boolean is_gestor) {
+        this.numeroCracha = numeroCracha;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
@@ -35,12 +36,12 @@ public class Funcionario {
     }
 
 
-    public Long getNumero_cracha() {
-        return numero_cracha;
+    public Long getNumeroCracha() {
+        return numeroCracha;
     }
 
-    public void setNumero_cracha(Long numero_cracha) {
-        this.numero_cracha = numero_cracha;
+    public void setNumeroCracha(Long numeroCracha) {
+        this.numeroCracha = numeroCracha;
     }
     public String getNome() {
         return nome;
@@ -99,17 +100,4 @@ public class Funcionario {
         this.is_gestor = is_gestor;
     }
 
-    @Override
-    public String toString() {
-        return "Funcionario{" +
-                " numero_cracha='" + numero_cracha + '\'' +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
-                ", id_cargo=" + id_cargo +
-                ", id_localizacao=" + id_localizacao +
-                ", is_gestor="+ is_gestor +
-                '}';
-    }
 }

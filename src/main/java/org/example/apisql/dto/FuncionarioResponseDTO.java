@@ -5,6 +5,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Objeto de resposta que representa os dados públicos de um funcionário")
 public class FuncionarioResponseDTO {
 
+    @Schema(description = "Número único do crachá do funcionário", example = "12345")
+    private Long numeroCracha;
+
     @Schema(description = "Nome do funcionário", example = "Maria")
     private String nome;
 
@@ -14,30 +17,25 @@ public class FuncionarioResponseDTO {
     @Schema(description = "Email corporativo do funcionário", example = "maria.silva@empresa.com")
     private String email;
 
-    @Schema(description = "Número único do crachá do funcionário", example = "12345")
-    private Long numero_cracha;
-
     @Schema(description = "Define se o funcionário é gestor", example = "false")
     private Boolean is_gestor;
 
     public FuncionarioResponseDTO() {}
 
-    public FuncionarioResponseDTO(Long numero_cracha, String nome, String sobrenome, String email, Boolean is_gestor) {
-        this.numero_cracha = numero_cracha;
+    public FuncionarioResponseDTO(Long numeroCracha, String nome, String sobrenome, String email, Boolean is_gestor) {
+        this.numeroCracha = numeroCracha;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
         this.is_gestor = is_gestor;
     }
 
-    public FuncionarioResponseDTO(String nome, String sobrenome, String email, Long numeroCracha, Boolean isGestor) {
-    }
 
-    public Long getNumero_cracha() {
-        return numero_cracha;
+    public Long getNumeroCracha() {
+        return numeroCracha;
     }
-    public void setNumero_cracha(Long numero_cracha) {
-        this.numero_cracha = numero_cracha;
+    public void setNumeroCracha(Long numeroCracha) {
+        this.numeroCracha = numeroCracha;
     }
 
     public String getNome() {
