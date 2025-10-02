@@ -32,7 +32,7 @@ public class FuncionarioService {
         funcionario.setNome(dto.getNome());
         funcionario.setSobrenome(dto.getSobrenome());
         funcionario.setEmail(dto.getEmail());
-        funcionario.setNumero_cracha(dto.getNumero_cracha());
+        funcionario.setNumeroCracha(dto.getNumeroCracha());
         funcionario.setId_cargo(dto.getId_cargo());
         funcionario.setIs_gestor(dto.getIs_gestor());
         return funcionario;
@@ -41,10 +41,10 @@ public class FuncionarioService {
 
     private FuncionarioResponseDTO toResponseDTO(Funcionario funcionario) {
         return new FuncionarioResponseDTO(
+                funcionario.getNumeroCracha(),
                 funcionario.getNome(),
                 funcionario.getSobrenome(),
                 funcionario.getEmail(),
-                funcionario.getNumero_cracha(),
                 funcionario.getIs_gestor()
         );
     }
