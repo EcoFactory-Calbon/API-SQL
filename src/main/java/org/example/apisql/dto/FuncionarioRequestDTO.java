@@ -10,7 +10,7 @@ public class FuncionarioRequestDTO {
 
     @NotNull(message = "Numero do cracha não pode estar vazio")
     @Schema(description = "Número único do crachá do funcionário", example = "12345")
-    private Long numero_cracha;
+    private Long numeroCracha;
 
     @NotNull(message = "Nome não pode estar vazio")
     @Schema(description = "Nome do funcionário", example = "Maria")
@@ -38,11 +38,11 @@ public class FuncionarioRequestDTO {
     @Schema(description = "Define se o funcionário é gestor", example = "true")
     private Boolean is_gestor;
 
-    public Long getNumero_cracha() {
-        return numero_cracha;
+    public Long getNumeroCracha() {
+        return numeroCracha;
     }
-    public void setNumero_cracha(Long numero_cracha) {
-        this.numero_cracha = numero_cracha;
+    public void setNumeroCracha(Long numeroCracha) {
+        this.numeroCracha = numeroCracha;
     }
 
     public String getNome() {
