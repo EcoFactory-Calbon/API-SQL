@@ -65,7 +65,7 @@ public class FuncionarioController implements FuncionarioOpenApi {
             @ApiResponse(responseCode = "404", description = "Funcionário não encontrado",
                     content = @Content)
     })
-    @PostMapping("/primeiro-acesso")
+    @PostMapping("/auth/primeiro-acesso")
     public ResponseEntity<Boolean> primeiroAcesso(@RequestBody @Valid PrimeiroAcessoRequestDTO dto) {
         boolean valido = funcionarioService.primeiroAcesso(dto.getEmail(), dto.getNumeroCracha(), dto.getCodigoEmpresa());
         return ResponseEntity.ok(valido);
@@ -78,7 +78,7 @@ public class FuncionarioController implements FuncionarioOpenApi {
             @ApiResponse(responseCode = "404", description = "Funcionário não encontrado",
                     content = @Content)
     })
-    @PostMapping("/registrar-senha")
+    @PostMapping("/auth/registrar-senha")
     public ResponseEntity<Boolean> registrarSenha(@RequestBody @Valid RegistrarSenhaRequestDTO dto) {
         boolean sucesso = funcionarioService.registrarSenha(dto.getEmail(), dto.getSenha());
         return ResponseEntity.ok(sucesso);
@@ -91,7 +91,7 @@ public class FuncionarioController implements FuncionarioOpenApi {
             @ApiResponse(responseCode = "401", description = "Credenciais inválidas",
                     content = @Content)
     })
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<Boolean> login(@RequestBody @Valid LoginRequestDTO dto) {
         boolean autenticado = funcionarioService.login(dto.getEmail(), dto.getSenha());
         return ResponseEntity.ok(autenticado);

@@ -9,6 +9,7 @@ import org.example.apisql.exception.AdminNaoEncotradoException;
 import org.example.apisql.model.Admin;
 import org.example.apisql.repository.AdminRepository;
 import org.example.apisql.validation.AdminPatchValidation;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,21 +22,22 @@ public class AdminService {
     private final AdminRepository adminRepository;
     private final AdminPatchValidation adminPatchValidation;
     private final ObjectMapper objectMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public AdminService(AdminRepository adminRepository, ObjectMapper objectMapper, AdminPatchValidation adminPatchValidation) {
+    public AdminService(AdminRepository adminRepository, ObjectMapper objectMapper, AdminPatchValidation adminPatchValidation, PasswordEncoder passwordEncoder) {
         this.adminRepository = adminRepository;
         this.adminPatchValidation = adminPatchValidation;
         this.objectMapper = objectMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     private Admin fromRequestDTO(AdminRequestDTO dto){
         Admin admin = new Admin();
         admin.setEmail(dto.getEmail());
         admin.setNome(dto.getNome());
-        admin.setSenha(dto.getSenha());
+        admin.setSenha(passwordEncoder.encode(dto.getSenha())); // senha criptografada
         return admin;
     }
-
 
     private AdminResponseDTO toResponseDTO(Admin admin) {
         return new AdminResponseDTO(
