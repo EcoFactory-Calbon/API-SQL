@@ -41,7 +41,6 @@ public class NivelEmissoesService {
         );
     }
 
-    // --- Listar todos ---
     public List<NivelEmissoesResponseDTO> listar() {
         return nivelEmissoesRepository.findAll()
                 .stream()
@@ -49,21 +48,18 @@ public class NivelEmissoesService {
                 .collect(Collectors.toList());
     }
 
-    // --- Inserir ---
     public NivelEmissoesResponseDTO inserirNivel(NivelEmissoesRequestDTO dto) {
         NivelEmissoes nivel = fromRequestDTO(dto);
         NivelEmissoes salvo = nivelEmissoesRepository.save(nivel);
         return toResponseDTO(salvo);
     }
 
-    // --- Excluir ---
     public void excluirNivel(Long id) {
         NivelEmissoes nivel = nivelEmissoesRepository.findById(id)
                 .orElseThrow(() -> new NivelEmissaoNaoEncontradoException("Nível de emissão com ID " + id + " não encontrado"));
         nivelEmissoesRepository.delete(nivel);
     }
 
-    // --- Atualizar (PUT) ---
     public NivelEmissoesResponseDTO atualizarNivel(@Valid NivelEmissoesRequestDTO nivelAtualizado, Long id) {
         NivelEmissoes existente = nivelEmissoesRepository.findById(id)
                 .orElseThrow(() -> new NivelEmissaoNaoEncontradoException("Nível de emissão com ID " + id + " não encontrado"));
