@@ -29,10 +29,10 @@ public class FuncionarioService {
 
     private Funcionario fromRequestDTO(FuncionarioRequestDTO dto) {
         Funcionario funcionario = new Funcionario();
+        funcionario.setNumeroCracha(dto.getNumeroCracha());
         funcionario.setNome(dto.getNome());
         funcionario.setSobrenome(dto.getSobrenome());
         funcionario.setEmail(dto.getEmail());
-        funcionario.setNumeroCracha(dto.getNumeroCracha());
         funcionario.setId_cargo(dto.getId_cargo());
         funcionario.setIs_gestor(dto.getIs_gestor());
         return funcionario;

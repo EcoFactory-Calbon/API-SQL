@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
-    @Query("SELECT f FROM Funcionario f where f.numero_cracha =: cracha ")
+    @Query("SELECT f FROM Funcionario f where f.numeroCracha =: cracha ")
     List<Funcionario> findByCracha(@Param("cracha") Long cracha);
 
 }
