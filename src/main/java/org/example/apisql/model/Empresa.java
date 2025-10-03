@@ -54,13 +54,4 @@ public class Empresa {
         this.id_categoria_empresa = id_categoria_empresa;
     }
 
-    @Override
-    public String toString() {
-        return "Empresa{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", id_localizacao=" + id_localizacao +
-                ", id_categoria_empresa=" + id_categoria_empresa +
-                '}';
-    }
 }

@@ -23,11 +23,5 @@ public class CategoriaPergunta {
         this.categoria = categoria;
     }
 
-    @Override
-    public String toString() {
-        return "CategoriaPergunta{" +
-                "id=" + id +
-                ", categoria='" + categoria + '\'' +
-                '}';
-    }
+
 }

@@ -31,6 +31,10 @@ public class NivelEmissoes {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNivel_emissao() {
         return nivel_emissao;
     }
@@ -39,11 +43,11 @@ public class NivelEmissoes {
         this.nivel_emissao = nivel_emissao;
     }
 
-    public double getValor_emissao() {
+    public Double getValor_emissao() {
         return valor_emissao;
     }
 
-    public void setValor_emissao(double valor_emissao) {
+    public void setValor_emissao(Double valor_emissao) {
         this.valor_emissao = valor_emissao;
     }
 

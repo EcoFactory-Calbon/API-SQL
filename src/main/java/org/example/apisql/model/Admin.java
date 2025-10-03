@@ -40,12 +40,5 @@ public class Admin {
         this.senha = senha;
     }
 
-    @Override
-    public String toString() {
-        return "Admin{" +
-                "email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", senha='" + senha + '\'' +
-                '}';
-    }
+
 }
