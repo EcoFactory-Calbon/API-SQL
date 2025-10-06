@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class EmpresaService {
     private final EmpresaRepository empresaRepository;
 
-    public EmpresaService(EmpresaRepository empresaRepository, ObjectMapper objectMapper) {
+    public EmpresaService(EmpresaRepository empresaRepository) {
         this.empresaRepository = empresaRepository;
     }
 

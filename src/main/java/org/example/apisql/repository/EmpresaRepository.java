@@ -1,6 +1,5 @@
 package org.example.apisql.repository;
 
-import org.example.apisql.model.Admin;
 import org.example.apisql.model.Empresa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
