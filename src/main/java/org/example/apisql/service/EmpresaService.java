@@ -54,7 +54,7 @@ public class EmpresaService {
     }
 
     public List<EmpresaResponseDTO> buscarPorIdCategoria(Long idCategoria) {
-        Optional<Empresa> empresas = empresaRepository.findById_categoria_empresa(idCategoria);
+        Optional<Empresa> empresas = empresaRepository.findByIdCategoriaEmpresa(idCategoria);
         return empresas.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
