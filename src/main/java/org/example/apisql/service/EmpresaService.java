@@ -1,5 +1,4 @@
 package org.example.apisql.service;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.example.apisql.dto.EmpresaRequestDTO;
 import org.example.apisql.dto.EmpresaResponseDTO;
