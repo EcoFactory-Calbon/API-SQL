@@ -1,11 +1,9 @@
 package org.example.apisql.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
-import org.example.apisql.dto.AdminResponseDTO;
 import org.example.apisql.dto.EmpresaRequestDTO;
 import org.example.apisql.dto.EmpresaResponseDTO;
 import org.example.apisql.exception.EmpresaNaoEncontradaException;
-import org.example.apisql.model.Admin;
 import org.example.apisql.model.Empresa;
 import org.example.apisql.repository.EmpresaRepository;
 import org.springframework.stereotype.Service;
@@ -26,8 +24,8 @@ public class EmpresaService {
     private Empresa fromRequestDTO(EmpresaRequestDTO dto){
         Empresa empresa = new Empresa();
         empresa.setNome(dto.getNome());
-        empresa.setId_localizacao(dto.getId_localizacao());
-        empresa.setId_categoria_empresa(dto.getId_categoria_empresa());
+        empresa.setIdLocalizacao(dto.getIdLocalizacao());
+        empresa.setIdCategoriaEmpresa(dto.getIdCategoriaEmpresa());
         return empresa;
     }
 
@@ -36,8 +34,8 @@ public class EmpresaService {
         return new EmpresaResponseDTO(
                 empresa.getId(),
                 empresa.getNome(),
-                empresa.getId_localizacao(),
-                empresa.getId_categoria_empresa()
+                empresa.getIdLocalizacao(),
+                empresa.getIdCategoriaEmpresa()
         );
     }
 
@@ -78,8 +76,8 @@ public class EmpresaService {
         Empresa existente = empresaRepository.findById(id)
                 .orElseThrow(() -> new EmpresaNaoEncontradaException("Empresa com o id: " + id + " não encontrado"));
         existente.setNome(empresaAtualizado.getNome());
-        existente.setId_localizacao(empresaAtualizado.getId_localizacao());
-        existente.setId_categoria_empresa(empresaAtualizado.getId_categoria_empresa());
+        existente.setIdLocalizacao(empresaAtualizado.getIdLocalizacao());
+        existente.setIdCategoriaEmpresa(empresaAtualizado.getIdCategoriaEmpresa());
 
         Empresa atualizado = empresaRepository.save(existente);
         return toResponseDTO(atualizado);

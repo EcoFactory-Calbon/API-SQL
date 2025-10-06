@@ -10,48 +10,29 @@ public class Empresa {
 
     private String nome;
 
-    private Long id_localizacao;
+    @Column(name = "id_localizacao") // mantém o nome no banco
+    private Long idLocalizacao;
 
-    private Long id_categoria_empresa;
+    @Column(name = "id_categoria_empresa") // mantém o nome no banco
+    private Long idCategoriaEmpresa;
 
     public Empresa() {}
 
-    public Empresa(String nome, Long id_localizacao, Long id_categoria_empresa) {
+    public Empresa(String nome, Long idLocalizacao, Long idCategoriaEmpresa) {
         this.nome = nome;
-        this.id_localizacao = id_localizacao;
-        this.id_categoria_empresa = id_categoria_empresa;
+        this.idLocalizacao = idLocalizacao;
+        this.idCategoriaEmpresa = idCategoriaEmpresa;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public String getNome() {
-        return nome;
-    }
+    public Long getIdLocalizacao() { return idLocalizacao; }
+    public void setIdLocalizacao(Long idLocalizacao) { this.idLocalizacao = idLocalizacao; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Long getId_localizacao() {
-        return id_localizacao;
-    }
-
-    public void setId_localizacao(Long id_localizacao) {
-        this.id_localizacao = id_localizacao;
-    }
-
-    public Long getId_categoria_empresa() {
-        return id_categoria_empresa;
-    }
-
-    public void setId_categoria_empresa(Long id_categoria_empresa) {
-        this.id_categoria_empresa = id_categoria_empresa;
-    }
-
+    public Long getIdCategoriaEmpresa() { return idCategoriaEmpresa; }
+    public void setIdCategoriaEmpresa(Long idCategoriaEmpresa) { this.idCategoriaEmpresa = idCategoriaEmpresa; }
 }

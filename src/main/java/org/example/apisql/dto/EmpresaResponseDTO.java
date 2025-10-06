@@ -1,29 +1,27 @@
 package org.example.apisql.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "Objeto de resposta que representa uma empresa cadastrada")
 public class EmpresaResponseDTO {
 
-    @Schema(description = "Identificador único da empresa", example = "1")
     private Long id;
-
-    @Schema(description = "Nome da empresa", example = "EcoFactory")
     private String nome;
 
-    @Schema(description = "Identificador da localização associada à empresa", example = "5")
-    private Long id_localizacao;
+    @JsonProperty("id_localizacao")
+    private Long idLocalizacao;
 
-    @Schema(description = "Identificador da categoria associada à empresa", example = "3")
-    private Long id_categoria_empresa;
+    @JsonProperty("id_categoria_empresa")
+    private Long idCategoriaEmpresa;
 
     public EmpresaResponseDTO() {}
 
-    public EmpresaResponseDTO(Long id, String nome, Long id_localizacao, Long id_categoria_empresa) {
+    public EmpresaResponseDTO(Long id, String nome, Long idLocalizacao, Long idCategoriaEmpresa) {
         this.id = id;
         this.nome = nome;
-        this.id_localizacao = id_localizacao;
-        this.id_categoria_empresa = id_categoria_empresa;
+        this.idLocalizacao = idLocalizacao;
+        this.idCategoriaEmpresa = idCategoriaEmpresa;
     }
 
     public Long getId() {
@@ -40,17 +38,17 @@ public class EmpresaResponseDTO {
         this.nome = nome;
     }
 
-    public Long getId_localizacao() {
-        return id_localizacao;
+    public Long getIdLocalizacao() {
+        return idLocalizacao;
     }
-    public void setId_localizacao(Long id_localizacao) {
-        this.id_localizacao = id_localizacao;
+    public void setIdLocalizacao(Long idLocalizacao) {
+        this.idLocalizacao = idLocalizacao;
     }
 
-    public Long getId_categoria_empresa() {
-        return id_categoria_empresa;
+    public Long getIdCategoriaEmpresa() {
+        return idCategoriaEmpresa;
     }
-    public void setId_categoria_empresa(Long id_categoria_empresa) {
-        this.id_categoria_empresa = id_categoria_empresa;
+    public void setIdCategoriaEmpresa(Long idCategoriaEmpresa) {
+        this.idCategoriaEmpresa = idCategoriaEmpresa;
     }
 }

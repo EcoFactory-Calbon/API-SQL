@@ -1,5 +1,6 @@
 package org.example.apisql.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,11 +11,13 @@ public class EmpresaRequestDTO {
     @Schema(description = "Nome da empresa", example = "EcoFactory")
     private String nome;
 
+    @JsonProperty("id_localizacao")
     @Schema(description = "Identificador da localização da empresa", example = "5")
-    private Long id_localizacao;
+    private Long idLocalizacao;
 
+    @JsonProperty("id_categoria_empresa")
     @Schema(description = "Identificador da categoria da empresa", example = "3")
-    private Long id_categoria_empresa;
+    private Long idCategoriaEmpresa;
 
     public String getNome() {
         return nome;
@@ -23,17 +26,17 @@ public class EmpresaRequestDTO {
         this.nome = nome;
     }
 
-    public Long getId_localizacao() {
-        return id_localizacao;
+    public Long getIdLocalizacao() {
+        return idLocalizacao;
     }
-    public void setId_localizacao(Long id_localizacao) {
-        this.id_localizacao = id_localizacao;
+    public void setIdLocalizacao(Long idLocalizacao) {
+        this.idLocalizacao = idLocalizacao;
     }
 
-    public Long getId_categoria_empresa() {
-        return id_categoria_empresa;
+    public Long getIdCategoriaEmpresa() {
+        return idCategoriaEmpresa;
     }
-    public void setId_categoria_empresa(Long id_categoria_empresa) {
-        this.id_categoria_empresa = id_categoria_empresa;
+    public void setIdCategoriaEmpresa(Long idCategoriaEmpresa) {
+        this.idCategoriaEmpresa = idCategoriaEmpresa;
     }
 }
