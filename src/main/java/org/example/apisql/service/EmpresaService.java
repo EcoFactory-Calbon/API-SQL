@@ -1,14 +1,17 @@
 package org.example.apisql.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
+import org.example.apisql.dto.AdminResponseDTO;
 import org.example.apisql.dto.EmpresaRequestDTO;
 import org.example.apisql.dto.EmpresaResponseDTO;
 import org.example.apisql.exception.EmpresaNaoEncontradaException;
+import org.example.apisql.model.Admin;
 import org.example.apisql.model.Empresa;
 import org.example.apisql.repository.EmpresaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,6 +44,20 @@ public class EmpresaService {
     public List<EmpresaResponseDTO> listar(){
         return empresaRepository.findAll()
                 .stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<EmpresaResponseDTO> buscarPorNome(String nome) {
+        Optional<Empresa> empresas = empresaRepository.findByNome(nome);
+        return empresas.stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<EmpresaResponseDTO> buscarPorIdCategoria(Long idCategoria) {
+        Optional<Empresa> empresas = empresaRepository.findById_categoria_empresa(idCategoria);
+        return empresas.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
     }
