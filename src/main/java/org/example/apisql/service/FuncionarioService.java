@@ -58,7 +58,7 @@ public class FuncionarioService {
     }
 
     public List<FuncionarioResponseDTO> buscarPorCracha(Long numero_cracha) {
-        Optional<Funcionario> funcionarios = funcionarioRepository.findById(numero_cracha);
+        List<Funcionario> funcionarios = funcionarioRepository.findByCracha(numero_cracha);
         return funcionarios.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
@@ -71,16 +71,16 @@ public class FuncionarioService {
         return toResponseDTO(salvo);
     }
 
-    public void excluirFuncionario(Long id) {
-        Funcionario funcionario = funcionarioRepository.findById(id)
-                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado com ID " + id + " não foi encontrado"));
+    public void excluirFuncionario(Long cracha) {
+        Funcionario funcionario = funcionarioRepository.findById(cracha)
+                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado com Cracha " + cracha + " não foi encontrado"));
         funcionarioRepository.delete(funcionario);
     }
 
 
-    public FuncionarioResponseDTO atualizarFuncionario(@Valid FuncionarioRequestDTO funcionarioAtualizado, Long numero_cracha) {
-        Funcionario existente = funcionarioRepository.findById(numero_cracha)
-                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionario com o cracha " + numero_cracha + " não encontrado"));
+    public FuncionarioResponseDTO atualizarFuncionario(@Valid FuncionarioRequestDTO funcionarioAtualizado, Long cracha) {
+        Funcionario existente = funcionarioRepository.findById(cracha)
+                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionario com o cracha " + cracha + " não encontrado"));
         existente.setNome(funcionarioAtualizado.getNome());
         existente.setSobrenome(funcionarioAtualizado.getSobrenome());
         existente.setEmail(funcionarioAtualizado.getEmail());
@@ -93,9 +93,9 @@ public class FuncionarioService {
     }
 
 
-    public FuncionarioResponseDTO atualizarFuncionarioParcialmente(Map<String, Object> updates, Long id) {
-        Funcionario existente = funcionarioRepository.findById(id)
-                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionario com o id " + id + " não foi encontrado"));
+    public FuncionarioResponseDTO atualizarFuncionarioParcialmente(Map<String, Object> updates, Long cracha) {
+        Funcionario existente = funcionarioRepository.findById(cracha)
+                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionario com o cracha " + cracha + " não foi encontrado"));
         funcionarioPatchValidation.validar(updates);
 
         if (updates.containsKey("nome")) {

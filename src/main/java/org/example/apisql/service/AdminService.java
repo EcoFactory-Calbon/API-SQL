@@ -1,7 +1,6 @@
 package org.example.apisql.service;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.example.apisql.dto.AdminRequestDTO;
 import org.example.apisql.dto.AdminResponseDTO;
@@ -9,6 +8,7 @@ import org.example.apisql.exception.AdminNaoEncotradoException;
 import org.example.apisql.model.Admin;
 import org.example.apisql.repository.AdminRepository;
 import org.example.apisql.validation.AdminPatchValidation;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,19 +21,20 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
     private final AdminPatchValidation adminPatchValidation;
+    private final PasswordEncoder passwordEncoder;
 
-    public AdminService(AdminRepository adminRepository, AdminPatchValidation adminPatchValidation) {
+    public AdminService(AdminRepository adminRepository, AdminPatchValidation adminPatchValidation, PasswordEncoder passwordEncoder) {
         this.adminRepository = adminRepository;
-        this.adminPatchValidation = adminPatchValidation;}
+        this.adminPatchValidation = adminPatchValidation;
+        this.passwordEncoder = passwordEncoder; // Atribuir o encoder
+    }
 
     private Admin fromRequestDTO(AdminRequestDTO dto){
         Admin admin = new Admin();
         admin.setEmail(dto.getEmail());
         admin.setNome(dto.getNome());
-        admin.setSenha(dto.getSenha());
         return admin;
     }
-
 
     private AdminResponseDTO toResponseDTO(Admin admin) {
         return new AdminResponseDTO(
@@ -49,7 +50,6 @@ public class AdminService {
                 .collect(Collectors.toList());
     }
 
-
     public List<AdminResponseDTO> buscarPorEmail(String email) {
         Optional<Admin> admins = adminRepository.findByEmail(email);
         return admins.stream()
@@ -59,6 +59,7 @@ public class AdminService {
 
     public AdminResponseDTO inserirAdmin(AdminRequestDTO dto) {
         Admin admin = fromRequestDTO(dto);
+        admin.setSenha(passwordEncoder.encode(dto.getSenha()));
         Admin salvo = adminRepository.save(admin);
         return toResponseDTO(salvo);
     }
@@ -72,15 +73,14 @@ public class AdminService {
     public AdminResponseDTO atualizarAdmin(@Valid AdminRequestDTO adminAtualizado, String email) {
         Admin existente = adminRepository.findByEmail(email)
                 .orElseThrow(() -> new AdminNaoEncotradoException("Admin com o Email " + email + " não encontrado"));
+
         existente.setEmail(adminAtualizado.getEmail());
         existente.setNome(adminAtualizado.getNome());
-        existente.setSenha(adminAtualizado.getSenha());
+        existente.setSenha(passwordEncoder.encode(adminAtualizado.getSenha()));
 
         Admin atualizado = adminRepository.save(existente);
         return toResponseDTO(atualizado);
-
     }
-
 
     public AdminResponseDTO atualizarAdminParcialmente(Map<String, Object> updates, String email) {
         Admin existente = adminRepository.findByEmail(email)
@@ -94,12 +94,11 @@ public class AdminService {
             existente.setNome(updates.get("nome").toString());
         }
         if (updates.containsKey("senha")) {
-            existente.setSenha(updates.get("senha").toString());
+            String senhaPlana = updates.get("senha").toString();
+            existente.setSenha(passwordEncoder.encode(senhaPlana));
         }
 
         Admin atualizado = adminRepository.save(existente);
         return toResponseDTO(atualizado);
     }
-
 }
-
