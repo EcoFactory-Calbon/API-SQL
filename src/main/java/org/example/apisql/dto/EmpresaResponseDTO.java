@@ -6,7 +6,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Objeto de resposta que representa uma empresa cadastrada")
 public class EmpresaResponseDTO {
 
+    @JsonProperty("id")
     private Long id;
+    @JsonProperty("nome")
     private String nome;
 
     @JsonProperty("id_localizacao")
@@ -15,13 +17,16 @@ public class EmpresaResponseDTO {
     @JsonProperty("id_categoria_empresa")
     private Long idCategoriaEmpresa;
 
-    public EmpresaResponseDTO() {}
+    @JsonProperty("cnpj")
+    private String cnpj;
 
-    public EmpresaResponseDTO(Long id, String nome, Long idLocalizacao, Long idCategoriaEmpresa) {
+
+    public EmpresaResponseDTO(Long id, String nome, Long idLocalizacao, Long idCategoriaEmpresa, String cnpj) {
         this.id = id;
         this.nome = nome;
         this.idLocalizacao = idLocalizacao;
         this.idCategoriaEmpresa = idCategoriaEmpresa;
+        this.cnpj = cnpj;
     }
 
     public Long getId() {
@@ -50,5 +55,13 @@ public class EmpresaResponseDTO {
     }
     public void setIdCategoriaEmpresa(Long idCategoriaEmpresa) {
         this.idCategoriaEmpresa = idCategoriaEmpresa;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 }

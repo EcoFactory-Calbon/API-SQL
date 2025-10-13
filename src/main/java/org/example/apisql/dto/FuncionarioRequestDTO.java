@@ -10,14 +10,17 @@ public class FuncionarioRequestDTO {
 
     @NotNull(message = "Numero do cracha não pode estar vazio")
     @Schema(description = "Número único do crachá do funcionário", example = "12345")
+    @Size(min = 6, max = 10)
     private Long numeroCracha;
 
     @NotNull(message = "Nome não pode estar vazio")
     @Schema(description = "Nome do funcionário", example = "Maria")
+    @Size(min = 3, message = "Nome deve ter no minimo 3 letras")
     private String nome;
 
     @NotNull(message = "Sobrenome não pode estar vazio")
     @Schema(description = "Sobrenome do funcionário", example = "Silva")
+    @Size(min = 3, message = "Sobrenome deve ter no minimo 3 letras")
     private String sobrenome;
 
     @Email

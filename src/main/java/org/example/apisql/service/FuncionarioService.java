@@ -1,7 +1,7 @@
 package org.example.apisql.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
+import org.example.apisql.dto.FuncionarioDetalhesDTO;
 import org.example.apisql.dto.FuncionarioRequestDTO;
 import org.example.apisql.dto.FuncionarioResponseDTO;
 import org.example.apisql.exception.FuncionarioNaoEncontradoException;
@@ -64,6 +64,10 @@ public class FuncionarioService {
                 .collect(Collectors.toList());
     }
 
+    public List<FuncionarioDetalhesDTO> buscarPorEmpresa(Integer idEmpresa){
+        return funcionarioRepository.findFuncionariosByEmpresaId(idEmpresa);
+
+    }
 
     public FuncionarioResponseDTO inserirFuncionario(FuncionarioRequestDTO dto) {
         Funcionario funcionario = fromRequestDTO(dto);

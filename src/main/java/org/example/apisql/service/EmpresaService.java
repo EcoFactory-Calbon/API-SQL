@@ -34,7 +34,8 @@ public class EmpresaService {
                 empresa.getId(),
                 empresa.getNome(),
                 empresa.getIdLocalizacao(),
-                empresa.getIdCategoriaEmpresa()
+                empresa.getIdCategoriaEmpresa(),
+                empresa.getCnpj()
         );
     }
 
@@ -52,8 +53,9 @@ public class EmpresaService {
                 .collect(Collectors.toList());
     }
 
+
     public List<EmpresaResponseDTO> buscarPorIdCategoria(Long idCategoria) {
-        Optional<Empresa> empresas = empresaRepository.findByIdCategoriaEmpresa(idCategoria);
+        Optional<Empresa> empresas = empresaRepository.findByIdCategoria(idCategoria);
         return empresas.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());

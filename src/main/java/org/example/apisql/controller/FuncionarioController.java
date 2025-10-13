@@ -1,10 +1,4 @@
 package org.example.apisql.controller;
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.example.apisql.dto.*;
 import org.example.apisql.model.Funcionario;
@@ -36,6 +30,11 @@ public class FuncionarioController implements FuncionarioOpenApi {
     @GetMapping("/buscarCracha/{cracha}")
     public ResponseEntity<List<FuncionarioResponseDTO>> buscarCracha(@PathVariable Long cracha) {
         return ResponseEntity.ok(funcionarioService.buscarPorCracha(cracha));
+    }
+
+    @GetMapping("/buscarEmpresa/{id}")
+    public ResponseEntity<List<FuncionarioDetalhesDTO>> buscarEmpresa(@PathVariable Integer id) {
+        return ResponseEntity.ok(funcionarioService.buscarPorEmpresa(id));
     }
 
     @PostMapping("/inserir")
