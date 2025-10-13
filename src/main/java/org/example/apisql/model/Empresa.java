@@ -10,18 +10,24 @@ public class Empresa {
 
     private String nome;
 
-    @Column(name = "id_localizacao") // mantém o nome no banco
+    @Column(name = "id_localizacao")
     private Long idLocalizacao;
 
-    @Column(name = "id_categoria_empresa") // mantém o nome no banco
-    private Long idCategoriaEmpresa;
+    @Column(name = "id_categoria")
+    private Long idCategoria;
+
+    private String cnpj;
+
+    private String senha;
 
     public Empresa() {}
 
-    public Empresa(String nome, Long idLocalizacao, Long idCategoriaEmpresa) {
+    public Empresa(String nome, Long idLocalizacao, Long idCategoria, String cnpj, String senha) {
         this.nome = nome;
         this.idLocalizacao = idLocalizacao;
-        this.idCategoriaEmpresa = idCategoriaEmpresa;
+        this.idCategoria = idCategoria;
+        this.cnpj = cnpj;
+        this.senha = senha;
     }
 
     public Long getId() { return id; }
@@ -33,6 +39,12 @@ public class Empresa {
     public Long getIdLocalizacao() { return idLocalizacao; }
     public void setIdLocalizacao(Long idLocalizacao) { this.idLocalizacao = idLocalizacao; }
 
-    public Long getIdCategoriaEmpresa() { return idCategoriaEmpresa; }
-    public void setIdCategoriaEmpresa(Long idCategoriaEmpresa) { this.idCategoriaEmpresa = idCategoriaEmpresa; }
+    public Long getIdCategoriaEmpresa() { return idCategoria; }
+    public void setIdCategoriaEmpresa(Long idCategoria) { this.idCategoria = idCategoria; }
+
+    public String getCnpj() { return cnpj; }
+    public void setCnpj(String cnpj) { this.cnpj = cnpj; }
+
+    public String getSenha() { return senha; }
+    public void setSenha(String senha) { this.senha = senha; }
 }
