@@ -1,4 +1,5 @@
 package org.example.apisql.openapi;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -6,16 +7,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.apisql.dto.FuncionarioDetalhesDTO;
 import org.example.apisql.dto.FuncionarioRequestDTO;
 import org.example.apisql.dto.FuncionarioResponseDTO;
 import org.example.apisql.model.Funcionario;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Map;
 
-@Tag(name = "Funcionario", description = "Endpoints para gerenciamento de Funcionario")
+@Tag(name = "Funcionario", description = "Endpoints para gerenciamento de Funcionários")
 public interface FuncionarioOpenApi {
 
     @Operation(
@@ -28,7 +29,6 @@ public interface FuncionarioOpenApi {
                             schema = @Schema(implementation = FuncionarioResponseDTO.class)))
     })
     ResponseEntity<List<FuncionarioResponseDTO>> listarAdmin();
-
 
 
     @Operation(
@@ -44,8 +44,25 @@ public interface FuncionarioOpenApi {
     })
     ResponseEntity<List<FuncionarioResponseDTO>> buscarCracha(
             @Parameter(description = "Número do crachá do funcionário a ser buscado", required = true, example = "12345")
-            @PathVariable Long cracha);
+            Long cracha);
 
+
+    @Operation(
+            summary = "Buscar funcionários por empresa",
+            description = "Retorna uma lista detalhada de funcionários que pertencem à empresa especificada pelo ID."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Funcionários encontrados com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = FuncionarioDetalhesDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Nenhum funcionário encontrado para o ID informado",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "ID da empresa inválido",
+                    content = @Content)
+    })
+    ResponseEntity<List<FuncionarioDetalhesDTO>> buscarEmpresa(
+            @Parameter(description = "ID da empresa a ser buscada", required = true, example = "10")
+            Integer id);
 
 
     @Operation(
@@ -66,6 +83,7 @@ public interface FuncionarioOpenApi {
             )
             FuncionarioRequestDTO dto);
 
+
     @Operation(
             summary = "Exclui um funcionário",
             description = "Remove um funcionário do sistema pelo seu ID."
@@ -75,7 +93,9 @@ public interface FuncionarioOpenApi {
             @ApiResponse(responseCode = "404", description = "Funcionário não encontrado")
     })
     ResponseEntity<Funcionario> excluirFuncionario(
-            @Parameter(description = "ID do funcionário a ser excluído") Long id);
+            @Parameter(description = "ID do funcionário a ser excluído", required = true, example = "1")
+            Long id);
+
 
     @Operation(
             summary = "Atualiza um funcionário",
@@ -88,8 +108,15 @@ public interface FuncionarioOpenApi {
             @ApiResponse(responseCode = "404", description = "Funcionário não encontrado")
     })
     ResponseEntity<FuncionarioResponseDTO> atualizarFuncionario(
-            @Parameter(description = "ID do funcionário a ser atualizado") Long id,
+            @Parameter(description = "ID do funcionário a ser atualizado", required = true, example = "1")
+            Long id,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Dados completos do funcionário para atualização",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = FuncionarioRequestDTO.class))
+            )
             FuncionarioRequestDTO dto);
+
 
     @Operation(
             summary = "Atualiza parcialmente um funcionário",
@@ -102,6 +129,12 @@ public interface FuncionarioOpenApi {
             @ApiResponse(responseCode = "404", description = "Funcionário não encontrado")
     })
     ResponseEntity<FuncionarioResponseDTO> atualizarParcialmenteFuncionario(
-            @Parameter(description = "ID do funcionário a ser atualizado parcialmente") Long id,
+            @Parameter(description = "ID do funcionário a ser atualizado parcialmente", required = true, example = "1")
+            Long id,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Campos e valores a serem atualizados",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = Map.class))
+            )
             Map<String, Object> updates);
 }
