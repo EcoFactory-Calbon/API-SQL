@@ -20,9 +20,10 @@ public class FuncionarioController implements FuncionarioOpenApi {
         this.funcionarioService = funcionarioService;
     }
 
+    // ... (outros endpoints permanecem iguais)
 
     @GetMapping("/listar")
-    public ResponseEntity<List<FuncionarioResponseDTO>> listarAdmin() {
+    public ResponseEntity<List<FuncionarioResponseDTO>> listarFuncionario() {
         List<FuncionarioResponseDTO> funcionarios = funcionarioService.listar();
         return ResponseEntity.ok(funcionarios);
     }
@@ -32,13 +33,14 @@ public class FuncionarioController implements FuncionarioOpenApi {
         return ResponseEntity.ok(funcionarioService.buscarPorCracha(cracha));
     }
 
+    // MUDANÇA AQUI: O parâmetro do @PathVariable agora é Integer
     @GetMapping("/buscarEmpresa/{id}")
     public ResponseEntity<List<FuncionarioDetalhesDTO>> buscarEmpresa(@PathVariable Integer id) {
         return ResponseEntity.ok(funcionarioService.buscarPorEmpresa(id));
     }
 
     @PostMapping("/inserir")
-    public ResponseEntity<FuncionarioResponseDTO> adicionarAdmin(@RequestBody @Valid FuncionarioRequestDTO dto) {
+    public ResponseEntity<FuncionarioResponseDTO> adicionarFuncionario(@RequestBody @Valid FuncionarioRequestDTO dto) {
         FuncionarioResponseDTO response = funcionarioService.inserirFuncionario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -60,6 +62,4 @@ public class FuncionarioController implements FuncionarioOpenApi {
         FuncionarioResponseDTO response = funcionarioService.atualizarFuncionarioParcialmente(updates, id);
         return ResponseEntity.ok(response);
     }
-
-
 }

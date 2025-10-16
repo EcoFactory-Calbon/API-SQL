@@ -28,7 +28,7 @@ public interface FuncionarioOpenApi {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = FuncionarioResponseDTO.class)))
     })
-    ResponseEntity<List<FuncionarioResponseDTO>> listarAdmin();
+    ResponseEntity<List<FuncionarioResponseDTO>> listarFuncionario();
 
 
     @Operation(
@@ -75,7 +75,7 @@ public interface FuncionarioOpenApi {
                             schema = @Schema(implementation = FuncionarioResponseDTO.class))),
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
-    ResponseEntity<FuncionarioResponseDTO> adicionarAdmin(
+    ResponseEntity<FuncionarioResponseDTO> adicionarFuncionario(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "Dados para criação de um novo funcionário",
                     required = true,

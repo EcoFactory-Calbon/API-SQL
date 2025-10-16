@@ -21,11 +21,12 @@ public class FuncionarioService {
     private final FuncionarioRepository funcionarioRepository;
     private final FuncionarioPatchValidation funcionarioPatchValidation;
 
-
     public FuncionarioService(FuncionarioRepository funcionarioRepository, FuncionarioPatchValidation funcionarioPatchValidation) {
         this.funcionarioRepository = funcionarioRepository;
         this.funcionarioPatchValidation = funcionarioPatchValidation;
     }
+
+    // ... (outros métodos permanecem iguais)
 
     private Funcionario fromRequestDTO(FuncionarioRequestDTO dto) {
         Funcionario funcionario = new Funcionario();
@@ -64,9 +65,9 @@ public class FuncionarioService {
                 .collect(Collectors.toList());
     }
 
+    // MUDANÇA AQUI: O parâmetro agora é Integer
     public List<FuncionarioDetalhesDTO> buscarPorEmpresa(Integer idEmpresa){
         return funcionarioRepository.findFuncionariosByEmpresaId(idEmpresa);
-
     }
 
     public FuncionarioResponseDTO inserirFuncionario(FuncionarioRequestDTO dto) {
@@ -93,7 +94,6 @@ public class FuncionarioService {
 
         Funcionario atualizado = funcionarioRepository.save(existente);
         return toResponseDTO(atualizado);
-
     }
 
 

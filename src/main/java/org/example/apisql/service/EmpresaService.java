@@ -5,6 +5,9 @@ import org.example.apisql.dto.EmpresaResponseDTO;
 import org.example.apisql.exception.EmpresaNaoEncontradaException;
 import org.example.apisql.model.Empresa;
 import org.example.apisql.repository.EmpresaRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +17,14 @@ import java.util.stream.Collectors;
 @Service
 public class EmpresaService {
     private final EmpresaRepository empresaRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public EmpresaService(EmpresaRepository empresaRepository) {
+
+    public EmpresaService(EmpresaRepository empresaRepository, PasswordEncoder passwordEncoder) {
         this.empresaRepository = empresaRepository;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
 
     private Empresa fromRequestDTO(EmpresaRequestDTO dto){
@@ -25,6 +32,13 @@ public class EmpresaService {
         empresa.setNome(dto.getNome());
         empresa.setIdLocalizacao(dto.getIdLocalizacao());
         empresa.setIdCategoriaEmpresa(dto.getIdCategoriaEmpresa());
+
+        // Adicionamos os dados de login
+        empresa.setCnpj(dto.getCnpj());
+
+        // Criptografamos a senha antes de atribuí-la à entidade!
+        empresa.setSenha(passwordEncoder.encode(dto.getSenha()));
+
         return empresa;
     }
 

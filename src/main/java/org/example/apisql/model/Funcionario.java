@@ -22,6 +22,10 @@ public class Funcionario {
 
     private Boolean is_gestor;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "empresa_id") // Nome da coluna de chave estrangeira no DB
+    private Empresa empresa;
+
     public Funcionario() {}
 
     public Funcionario(String nome, String sobrenome, String email, String senha, Long numeroCracha, Long id_cargo, Long id_localizacao, Boolean is_gestor) {
@@ -98,6 +102,14 @@ public class Funcionario {
 
     public void setIs_gestor(Boolean is_gestor) {
         this.is_gestor = is_gestor;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
 }

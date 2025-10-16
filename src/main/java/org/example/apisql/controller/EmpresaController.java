@@ -37,7 +37,7 @@ public class EmpresaController implements EmpresaOpenApi {
     }
 
     @PostMapping("/inserir")
-    public ResponseEntity<EmpresaResponseDTO> adicionarEmpresa(@RequestBody @Valid EmpresaRequestDTO dto) {
+    public ResponseEntity<EmpresaResponseDTO> inserirEmpresa(@RequestBody @Valid EmpresaRequestDTO dto) {
         EmpresaResponseDTO response = empresaService.inserirEmpresa(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
