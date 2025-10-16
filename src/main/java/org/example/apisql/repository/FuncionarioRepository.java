@@ -12,5 +12,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 
     @Query(value = "SELECT numero_cracha, nome, sobrenome, email, cargo, setor FROM fn_listar_funcionarios_empresa(:idEmpresa)",
             nativeQuery = true)
+        // MUDANÇA AQUI: Trocamos Long por Integer para corresponder ao tipo esperado pela função no PostgreSQL
     List<FuncionarioDetalhesDTO> findFuncionariosByEmpresaId(@Param("idEmpresa") Integer idEmpresa);
 }

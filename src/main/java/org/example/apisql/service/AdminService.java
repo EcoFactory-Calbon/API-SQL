@@ -9,6 +9,7 @@ import org.example.apisql.exception.AdminNaoEncotradoException;
 import org.example.apisql.model.Admin;
 import org.example.apisql.repository.AdminRepository;
 import org.example.apisql.validation.AdminPatchValidation;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,10 +22,13 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
     private final AdminPatchValidation adminPatchValidation;
+    private final PasswordEncoder passwordEncoder; // <-- 2. Injetar o PasswordEncoder
 
-    public AdminService(AdminRepository adminRepository, AdminPatchValidation adminPatchValidation) {
+    public AdminService(AdminRepository adminRepository, AdminPatchValidation adminPatchValidation, PasswordEncoder passwordEncoder) {
         this.adminRepository = adminRepository;
-        this.adminPatchValidation = adminPatchValidation;}
+        this.adminPatchValidation = adminPatchValidation;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     private Admin fromRequestDTO(AdminRequestDTO dto){
         Admin admin = new Admin();
@@ -58,9 +62,20 @@ public class AdminService {
     }
 
     public AdminResponseDTO inserirAdmin(AdminRequestDTO dto) {
-        Admin admin = fromRequestDTO(dto);
-        Admin salvo = adminRepository.save(admin);
-        return toResponseDTO(salvo);
+        // Lógica para verificar se o admin já existe, etc.
+
+        Admin novoAdmin = new Admin();
+        novoAdmin.setEmail(dto.getEmail());
+        novoAdmin.setNome(dto.getNome());
+
+        // *** A CORREÇÃO CRÍTICA ESTÁ AQUI ***
+        // 4. Criptografe a senha ANTES de salvar no banco
+        String senhaCriptografada = passwordEncoder.encode(dto.getSenha());
+        novoAdmin.setSenha(senhaCriptografada);
+
+        adminRepository.save(novoAdmin);
+
+        return new AdminResponseDTO(novoAdmin.getEmail(), novoAdmin.getNome());
     }
 
     public void excluirAdmin(String email) {

@@ -6,9 +6,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.example.apisql.dto.EmpresaRequestDTO;
 import org.example.apisql.dto.EmpresaResponseDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -51,8 +53,7 @@ public interface EmpresaOpenApi {
     @ApiResponse(responseCode = "201", description = "Empresa criada com sucesso",
             content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = EmpresaResponseDTO.class)))
-    ResponseEntity<EmpresaResponseDTO> adicionarEmpresa(
-            @Parameter(description = "Dados da nova empresa") EmpresaRequestDTO dto);
+    ResponseEntity<EmpresaResponseDTO> inserirEmpresa(@RequestBody @Valid EmpresaRequestDTO dto);
 
     @Operation(
             summary = "Exclui uma empresa",
