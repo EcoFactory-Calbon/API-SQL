@@ -56,7 +56,6 @@ public class Empresa implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Define o "papel" ou "role" desta entidade.
         return List.of(new SimpleGrantedAuthority("ROLE_EMPRESA"));
     }
 
