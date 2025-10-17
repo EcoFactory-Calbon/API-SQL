@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.apisql.service.FuncionarioDetailsService;
 import org.springframework.beans.factory.annotation.Qualifier; // Importar
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,14 +23,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UserDetailsService adminDetailsService;
     private final UserDetailsService empresaDetailsService;
+    private final FuncionarioDetailsService funcionarioDetailsService;
 
     // Injetamos ambos os serviços, especificando qual é qual com @Qualifier
     public JwtRequestFilter(JwtUtil jwtUtil,
                             @Qualifier("adminDetailsService") UserDetailsService adminDetailsService,
-                            @Qualifier("empresaDetailsService") UserDetailsService empresaDetailsService) {
+                            @Qualifier("empresaDetailsService") UserDetailsService empresaDetailsService, FuncionarioDetailsService funcionarioDetailsService) {
         this.jwtUtil = jwtUtil;
         this.adminDetailsService = adminDetailsService;
         this.empresaDetailsService = empresaDetailsService;
+        this.funcionarioDetailsService = funcionarioDetailsService;
     }
 
     @Override
@@ -57,6 +60,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 userDetails = adminDetailsService.loadUserByUsername(username);
             } else if ("EMPRESA".equalsIgnoreCase(userType)) {
                 userDetails = empresaDetailsService.loadUserByUsername(username);
+            } else if ("FUNCIONARIO".equalsIgnoreCase(userType)) {
+                userDetails = funcionarioDetailsService.loadUserByUsername(username);
             }
 
             if (userDetails != null && jwtUtil.isTokenValido(jwt)) {

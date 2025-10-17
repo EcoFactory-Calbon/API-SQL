@@ -1,5 +1,6 @@
 package org.example.apisql.controller;
 
+import jakarta.validation.Valid;
 import org.example.apisql.dto.*;
 import org.example.apisql.openapi.AuthOpenApi;
 import org.example.apisql.service.AuthService;
@@ -21,13 +22,19 @@ public class AuthController implements AuthOpenApi{
 
     @PostMapping("/empresa/login")
     public ResponseEntity<LoginEmpresaResponse> loginEmpresa(@RequestBody LoginEmpresaRequest loginEmpresaRequest) {
-        LoginEmpresaResponse response = authService.autenticar(loginEmpresaRequest.getCnpj(), loginEmpresaRequest.getSenha());
+        LoginEmpresaResponse response = authService.autenticarEmpresa(loginEmpresaRequest.getCnpj(), loginEmpresaRequest.getSenha());
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/admin/login")
     public ResponseEntity<LoginAdminResponse> loginAdmin(@RequestBody LoginAdminRequest loginRequest) {
         LoginAdminResponse response = authService.autenticarAdmin(loginRequest.getEmail(), loginRequest.getSenha());
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/funcionario/login")
+    public ResponseEntity<LoginFuncionarioResponse> loginFuncionario(@RequestBody @Valid LoginFuncionarioRequest loginRequest) {
+        LoginFuncionarioResponse response = authService.autenticarFuncionario(loginRequest.getNumeroCracha(), loginRequest.getSenha());
         return ResponseEntity.ok(response);
     }
 }

@@ -2,8 +2,10 @@ package org.example.apisql.service;
 
 import org.example.apisql.dto.LoginAdminResponse;
 import org.example.apisql.dto.LoginEmpresaResponse;
+import org.example.apisql.dto.LoginFuncionarioResponse;
 import org.example.apisql.repository.AdminRepository;
 import org.example.apisql.repository.EmpresaRepository;
+import org.example.apisql.repository.FuncionarioRepository;
 import org.example.apisql.security.JwtUtil;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,17 +16,19 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final EmpresaRepository empresaRepository;
     private final AdminRepository adminRepository;
+    private final FuncionarioRepository funcionarioRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    public AuthService(EmpresaRepository empresaRepository, AdminRepository adminRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+    public AuthService(FuncionarioRepository funcionarioRepository,EmpresaRepository empresaRepository, AdminRepository adminRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.empresaRepository = empresaRepository;
         this.adminRepository = adminRepository;
+        this.funcionarioRepository = funcionarioRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
     }
 
-    public LoginEmpresaResponse autenticar(String cnpj, String senha) {
+    public LoginEmpresaResponse autenticarEmpresa(String cnpj, String senha) {
         var empresa = empresaRepository.findByCnpj(cnpj)
                 .orElseThrow(() -> new UsernameNotFoundException("Empresa não encontrada"));
 
@@ -45,5 +49,17 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(admin);
         return new LoginAdminResponse(token, admin.getNome(), admin.getEmail());
+    }
+
+
+    public LoginFuncionarioResponse autenticarFuncionario(Long numeroCracha, String senha) {
+        var funcionario = funcionarioRepository.findById(numeroCracha)
+                .orElseThrow(() -> new UsernameNotFoundException("Funcionário não encontrado com o crachá: " + numeroCracha));
+        if (!passwordEncoder.matches(senha, funcionario.getSenha())) {
+            throw new BadCredentialsException("Senha incorreta");
+        }
+
+        String token = jwtUtil.generateToken(funcionario);
+        return new LoginFuncionarioResponse(token, funcionario.getNome(), funcionario.getNumeroCracha());
     }
 }

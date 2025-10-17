@@ -7,10 +7,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.apisql.dto.LoginAdminRequest;     // <-- Importar o DTO correto
-import org.example.apisql.dto.LoginAdminResponse;    // <-- Importar o DTO correto
-import org.example.apisql.dto.LoginEmpresaRequest;
-import org.example.apisql.dto.LoginEmpresaResponse;
+import org.example.apisql.dto.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -49,5 +46,20 @@ public interface AuthOpenApi {
                                                    @RequestBody(description = "Credenciais do administrador para realizar a autenticação", required = true,
                                                            content = @Content(schema = @Schema(implementation = LoginAdminRequest.class))) // <-- Corrigido aqui
                                                    LoginAdminRequest loginRequest);
+
+
+    @Operation(summary = "Autentica um Funcionário",
+            description = "Valida as credenciais (Número do Crachá e senha) de um funcionário e, em caso de sucesso, gera um token de acesso JWT.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Login do funcionário realizado com sucesso",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = LoginFuncionarioResponse.class))),
+            @ApiResponse(responseCode = "401", description = "Não autorizado. Crachá ou senha inválidos",
+                    content = @Content)
+    })
+    ResponseEntity<LoginFuncionarioResponse> loginFuncionario(
+            @RequestBody(description = "Credenciais do funcionário para realizar a autenticação", required = true,
+                    content = @Content(schema = @Schema(implementation = LoginFuncionarioRequest.class)))
+            LoginFuncionarioRequest loginRequest);
 
 }

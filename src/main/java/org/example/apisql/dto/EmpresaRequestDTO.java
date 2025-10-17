@@ -16,11 +16,12 @@ public class EmpresaRequestDTO {
     @Schema(description = "Identificador da localização da empresa", example = "5")
     private Long idLocalizacao;
 
-    @JsonProperty("id_categoria_empresa")
+    @JsonProperty("id_categoria")
     @Schema(description = "Identificador da categoria da empresa", example = "3")
-    private Long idCategoriaEmpresa;
+    private Long idCategoria;
 
     @JsonProperty("cnpj")
+    @Size(min = 14, max = 14, message = "CNPJ tem que ter 14 digitos")
     @Schema(description = "Cnpj da empresa", example = "xx.xxx.xxx/xxxx-xx")
     private String cnpj;
 
@@ -44,11 +45,11 @@ public class EmpresaRequestDTO {
         this.idLocalizacao = idLocalizacao;
     }
 
-    public Long getIdCategoriaEmpresa() {
-        return idCategoriaEmpresa;
+    public Long getIdCategoria() {
+        return idCategoria;
     }
-    public void setIdCategoriaEmpresa(Long idCategoriaEmpresa) {
-        this.idCategoriaEmpresa = idCategoriaEmpresa;
+    public void setIdCategoria(Long idCategoriaEmpresa) {
+        this.idCategoria = idCategoriaEmpresa;
     }
 
     public String getCnpj() {return cnpj;}

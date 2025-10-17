@@ -20,14 +20,22 @@ public class FuncionarioResponseDTO {
     @Schema(description = "Define se o funcionário é gestor", example = "false")
     private Boolean is_gestor;
 
+    @Schema(description = "Id do cargo do funcionário", example = "3")
+    private Long id_Cargo;
+
+    @Schema(description = "Id do cargo do funcionário", example = "1240")
+    private Long id_Localizacao;
+
     public FuncionarioResponseDTO() {}
 
-    public FuncionarioResponseDTO(Long numeroCracha, String nome, String sobrenome, String email, Boolean is_gestor) {
+    public FuncionarioResponseDTO(Long numeroCracha, String nome, String sobrenome, String email, Boolean is_gestor, Long id_Cargo, Long id_Localizacao) {
         this.numeroCracha = numeroCracha;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
         this.is_gestor = is_gestor;
+        this.id_Cargo = id_Cargo;
+        this.id_Localizacao = id_Localizacao;
     }
 
 
@@ -64,5 +72,21 @@ public class FuncionarioResponseDTO {
     }
     public void setIs_gestor(Boolean is_gestor) {
         this.is_gestor = is_gestor;
+    }
+
+    public Long getId_Cargo() {
+        return id_Cargo;
+    }
+
+    public void setId_Cargo(Long id_Cargo) {
+        this.id_Cargo = id_Cargo;
+    }
+
+    public Long getId_Localizacao() {
+        return id_Localizacao;
+    }
+
+    public void setId_Localizacao(Long id_Localizacao) {
+        this.id_Localizacao = id_Localizacao;
     }
 }

@@ -5,8 +5,7 @@ import org.example.apisql.dto.EmpresaResponseDTO;
 import org.example.apisql.exception.EmpresaNaoEncontradaException;
 import org.example.apisql.model.Empresa;
 import org.example.apisql.repository.EmpresaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +30,9 @@ public class EmpresaService {
         Empresa empresa = new Empresa();
         empresa.setNome(dto.getNome());
         empresa.setIdLocalizacao(dto.getIdLocalizacao());
-        empresa.setIdCategoriaEmpresa(dto.getIdCategoriaEmpresa());
-
-        // Adicionamos os dados de login
+        empresa.setIdCategoria(dto.getIdCategoria());
         empresa.setCnpj(dto.getCnpj());
-
-        // Criptografamos a senha antes de atribuí-la à entidade!
         empresa.setSenha(passwordEncoder.encode(dto.getSenha()));
-
         return empresa;
     }
 
@@ -48,7 +42,7 @@ public class EmpresaService {
                 empresa.getId(),
                 empresa.getNome(),
                 empresa.getIdLocalizacao(),
-                empresa.getIdCategoriaEmpresa(),
+                empresa.getIdCategoria(),
                 empresa.getCnpj()
         );
     }
@@ -92,7 +86,7 @@ public class EmpresaService {
                 .orElseThrow(() -> new EmpresaNaoEncontradaException("Empresa com o id: " + id + " não encontrado"));
         existente.setNome(empresaAtualizado.getNome());
         existente.setIdLocalizacao(empresaAtualizado.getIdLocalizacao());
-        existente.setIdCategoriaEmpresa(empresaAtualizado.getIdCategoriaEmpresa());
+        existente.setIdCategoria(empresaAtualizado.getIdCategoria());
 
         Empresa atualizado = empresaRepository.save(existente);
         return toResponseDTO(atualizado);
