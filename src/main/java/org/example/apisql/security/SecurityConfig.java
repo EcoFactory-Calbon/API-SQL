@@ -2,6 +2,7 @@ package org.example.apisql.security;
 
 import org.example.apisql.service.AdminDetailsService;
 import org.example.apisql.service.EmpresaDetailsService;
+import org.example.apisql.service.FuncionarioDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,17 +24,18 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity // Habilita o uso de @PreAuthorize
+@EnableMethodSecurity
 public class SecurityConfig {
     private final JwtRequestFilter jwtRequestFilter;
     private final EmpresaDetailsService empresaDetailsService;
-    private final AdminDetailsService adminDetailsService; // Injetar o serviço de Admin
+    private final AdminDetailsService adminDetailsService;
+    private final FuncionarioDetailsService funcionarioDetailsService;
 
-
-    public SecurityConfig(JwtRequestFilter jwtRequestFilter, EmpresaDetailsService empresaDetailsService, AdminDetailsService adminDetailsService) {
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter, FuncionarioDetailsService funcionarioDetailsService, EmpresaDetailsService empresaDetailsService, AdminDetailsService adminDetailsService) {
         this.jwtRequestFilter = jwtRequestFilter;
         this.empresaDetailsService = empresaDetailsService;
         this.adminDetailsService = adminDetailsService;
+        this.funcionarioDetailsService = funcionarioDetailsService;
 
     }
 
@@ -79,6 +81,14 @@ public class SecurityConfig {
     public DaoAuthenticationProvider adminAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(adminDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider funcionarioAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(funcionarioDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }

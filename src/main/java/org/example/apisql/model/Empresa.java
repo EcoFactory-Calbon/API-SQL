@@ -11,7 +11,7 @@ import java.util.List;
 public class Empresa implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
@@ -45,8 +45,8 @@ public class Empresa implements UserDetails {
     public Long getIdLocalizacao() { return idLocalizacao; }
     public void setIdLocalizacao(Long idLocalizacao) { this.idLocalizacao = idLocalizacao; }
 
-    public Long getIdCategoriaEmpresa() { return idCategoria; }
-    public void setIdCategoriaEmpresa(Long idCategoria) { this.idCategoria = idCategoria; }
+    public Long getIdCategoria() { return idCategoria; }
+    public void setIdCategoria(Long idCategoria) { this.idCategoria = idCategoria; }
 
     public String getCnpj() { return cnpj; }
     public void setCnpj(String cnpj) { this.cnpj = cnpj; }

@@ -1,12 +1,15 @@
 package org.example.apisql.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 
 public class LocalizacaoRequestDTO {
 
     private Integer id;
 
-    @Size(min = 2, max = 2, message = "Estado tem que ser pela sua sigla")
+    @Min(value = 2, message = "Estado tem que ser pela sua sigla")
+    @Max(value = 2, message = "Estado tem que ser pela sua sigla")
     private String estado;
 
     private String cidade;

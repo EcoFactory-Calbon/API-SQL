@@ -62,19 +62,12 @@ public class AdminService {
     }
 
     public AdminResponseDTO inserirAdmin(AdminRequestDTO dto) {
-        // Lógica para verificar se o admin já existe, etc.
-
         Admin novoAdmin = new Admin();
         novoAdmin.setEmail(dto.getEmail());
         novoAdmin.setNome(dto.getNome());
-
-        // *** A CORREÇÃO CRÍTICA ESTÁ AQUI ***
-        // 4. Criptografe a senha ANTES de salvar no banco
         String senhaCriptografada = passwordEncoder.encode(dto.getSenha());
         novoAdmin.setSenha(senhaCriptografada);
-
         adminRepository.save(novoAdmin);
-
         return new AdminResponseDTO(novoAdmin.getEmail(), novoAdmin.getNome());
     }
 

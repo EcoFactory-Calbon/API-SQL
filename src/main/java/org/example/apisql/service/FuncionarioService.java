@@ -8,6 +8,7 @@ import org.example.apisql.exception.FuncionarioNaoEncontradoException;
 import org.example.apisql.model.Funcionario;
 import org.example.apisql.repository.FuncionarioRepository;
 import org.example.apisql.validation.FuncionarioPatchValidation;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,14 +20,15 @@ import java.util.stream.Collectors;
 public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
+    private final PasswordEncoder passwordEncoder;
     private final FuncionarioPatchValidation funcionarioPatchValidation;
 
-    public FuncionarioService(FuncionarioRepository funcionarioRepository, FuncionarioPatchValidation funcionarioPatchValidation) {
+    public FuncionarioService(FuncionarioRepository funcionarioRepository, PasswordEncoder passwordEncoder, FuncionarioPatchValidation funcionarioPatchValidation) {
         this.funcionarioRepository = funcionarioRepository;
+        this.passwordEncoder = passwordEncoder;
         this.funcionarioPatchValidation = funcionarioPatchValidation;
     }
 
-    // ... (outros métodos permanecem iguais)
 
     private Funcionario fromRequestDTO(FuncionarioRequestDTO dto) {
         Funcionario funcionario = new Funcionario();
@@ -34,8 +36,10 @@ public class FuncionarioService {
         funcionario.setNome(dto.getNome());
         funcionario.setSobrenome(dto.getSobrenome());
         funcionario.setEmail(dto.getEmail());
+        funcionario.setSenha(passwordEncoder.encode(dto.getSenha()));
         funcionario.setId_cargo(dto.getId_cargo());
         funcionario.setIs_gestor(dto.getIs_gestor());
+        funcionario.setId_localizacao(dto.getId_localizacao());
         return funcionario;
     }
 
@@ -46,7 +50,9 @@ public class FuncionarioService {
                 funcionario.getNome(),
                 funcionario.getSobrenome(),
                 funcionario.getEmail(),
-                funcionario.getIs_gestor()
+                funcionario.getIs_gestor() ,
+                funcionario.getId_localizacao(),
+                funcionario.getId_cargo()
         );
     }
 

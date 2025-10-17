@@ -1,16 +1,16 @@
 package org.example.apisql.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 @Schema(description = "Objeto de requisição para criação ou atualização de funcionário")
 public class FuncionarioRequestDTO {
 
     @NotNull(message = "Numero do cracha não pode estar vazio")
-    @Schema(description = "Número único do crachá do funcionário", example = "12345")
-    @Size(min = 6, max = 10)
+    @Schema(description = "Número único do crachá do funcionário", example = "123456")
+    // Use @Min e @Max para validar o valor de um número
+    @Min(value = 100000, message = "O número do crachá deve ter no mínimo 6 dígitos")
+    @Max(value = 9999999999L, message = "O número do crachá deve ter no máximo 10 dígitos")
     private Long numeroCracha;
 
     @NotNull(message = "Nome não pode estar vazio")

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.example.apisql.model.Admin;
 import org.example.apisql.model.Empresa;
+import org.example.apisql.model.Funcionario;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,7 +20,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(empresa.getCnpj())
                 .claim("nome", empresa.getNome())
-                .claim("type", "EMPRESA") // <-- Adicionamos o tipo aqui
+                .claim("type", "EMPRESA")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
@@ -31,6 +32,17 @@ public class JwtUtil {
                 .setSubject(admin.getEmail())
                 .claim("nome", admin.getNome())
                 .claim("type", "ADMIN") // <-- Adicionamos o tipo aqui
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
+    }
+
+    public String generateToken(Funcionario funcionario) {
+        return Jwts.builder()
+                .setSubject(funcionario.getEmail())
+                .claim("nome", funcionario.getNome())
+                .claim("type", "FUNCIONARIO")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
