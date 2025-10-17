@@ -10,10 +10,10 @@ O projeto segue boas práticas de arquitetura em camadas (Controller → Service
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
 - [Hibernate](https://hibernate.org/)
-- [PostgreSQL](https://www.postgresql.org/) *(ou outro banco suportado)*
+- [PostgreSQL](https://www.postgresql.org/) 
 - [Maven](https://maven.apache.org/)
 - [Docker](https://www.docker.com/)
-- [Swagger / OpenAPI](https://swagger.io/) *(se configurado)*
+- [Swagger / OpenAPI](https://swagger.io/) 
 
 ---
 
