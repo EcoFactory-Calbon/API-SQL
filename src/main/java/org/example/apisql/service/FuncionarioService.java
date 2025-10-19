@@ -1,6 +1,7 @@
 package org.example.apisql.service;
 
 import jakarta.validation.Valid;
+import org.example.apisql.dto.AtualizarPerfilRequestDTO;
 import org.example.apisql.dto.FuncionarioDetalhesDTO;
 import org.example.apisql.dto.FuncionarioRequestDTO;
 import org.example.apisql.dto.FuncionarioResponseDTO;
@@ -123,6 +124,31 @@ public class FuncionarioService {
         if (updates.containsKey("is_gestor")) {
             existente.setIs_gestor(Boolean.parseBoolean(updates.get("is_gestor").toString()));
         }
+        Funcionario atualizado = funcionarioRepository.save(existente);
+        return toResponseDTO(atualizado);
+    }
+
+
+    public FuncionarioResponseDTO atualizarPerfil(String email, Map<String, Object> updates) {
+        Funcionario existente = funcionarioRepository.findByEmail(email)
+                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário autenticado não encontrado com o email: " + email));
+
+        if (updates.containsKey("nome")) {
+            existente.setNome(updates.get("nome").toString());
+        }
+        if (updates.containsKey("sobrenome")) {
+            existente.setSobrenome(updates.get("sobrenome").toString());
+        }
+        if (updates.containsKey("email")) {
+            existente.setEmail(updates.get("email").toString());
+        }
+        if (updates.containsKey("id_localizacao")) {
+            existente.setId_localizacao(Long.parseLong(updates.get("id_localizacao").toString()));
+        }
+        if (updates.containsKey("senha")) {
+            existente.setSenha(passwordEncoder.encode(updates.get("senha").toString()));
+        }
+
         Funcionario atualizado = funcionarioRepository.save(existente);
         return toResponseDTO(atualizado);
     }

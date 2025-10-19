@@ -6,6 +6,8 @@ import org.example.apisql.openapi.FuncionarioOpenApi;
 import org.example.apisql.service.FuncionarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +21,6 @@ public class FuncionarioController implements FuncionarioOpenApi {
     public FuncionarioController(FuncionarioService funcionarioService) {
         this.funcionarioService = funcionarioService;
     }
-
-    // ... (outros endpoints permanecem iguais)
-
     @GetMapping("/listar")
     public ResponseEntity<List<FuncionarioResponseDTO>> listarFuncionario() {
         List<FuncionarioResponseDTO> funcionarios = funcionarioService.listar();
@@ -60,6 +59,18 @@ public class FuncionarioController implements FuncionarioOpenApi {
     @PatchMapping("/atualizar/{id}")
     public ResponseEntity<FuncionarioResponseDTO> atualizarParcialmenteFuncionario(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
         FuncionarioResponseDTO response = funcionarioService.atualizarFuncionarioParcialmente(updates, id);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @PatchMapping("/AtualizarPerfil")
+    public ResponseEntity<FuncionarioResponseDTO> atualizarPerfil(
+            Authentication authentication,
+            @RequestBody Map<String, Object> updates) {
+
+        String numeroCracha = authentication.getName();
+
+        FuncionarioResponseDTO response = funcionarioService.atualizarPerfil(numeroCracha, updates);
         return ResponseEntity.ok(response);
     }
 }

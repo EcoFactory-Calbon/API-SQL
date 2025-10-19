@@ -7,11 +7,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.apisql.dto.AtualizarPerfilRequestDTO;
 import org.example.apisql.dto.FuncionarioDetalhesDTO;
 import org.example.apisql.dto.FuncionarioRequestDTO;
 import org.example.apisql.dto.FuncionarioResponseDTO;
 import org.example.apisql.model.Funcionario;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.Map;
@@ -135,6 +137,25 @@ public interface FuncionarioOpenApi {
                     description = "Campos e valores a serem atualizados",
                     required = true,
                     content = @Content(schema = @Schema(implementation = Map.class))
+            )
+            Map<String, Object> updates);
+
+
+
+    @Operation(
+            summary = "Atualiza parcialmente o perfil do funcionário autenticado",
+            description = "Permite que um funcionário logado atualize um ou mais campos do seu perfil, como nome ou senha. Apenas os campos enviados no corpo da requisição serão alterados."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Perfil atualizado com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = FuncionarioResponseDTO.class)))
+    })
+    ResponseEntity<FuncionarioResponseDTO> atualizarPerfil(
+            @Parameter(hidden = true) Authentication authentication,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Um objeto JSON contendo apenas os campos a serem atualizados.",
+                    required = true
             )
             Map<String, Object> updates);
 }
