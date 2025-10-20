@@ -8,7 +8,6 @@ public class FuncionarioRequestDTO {
 
     @NotNull(message = "Numero do cracha não pode estar vazio")
     @Schema(description = "Número único do crachá do funcionário", example = "123456")
-    // Use @Min e @Max para validar o valor de um número
     @Min(value = 100000, message = "O número do crachá deve ter no mínimo 6 dígitos")
     @Max(value = 9999999999L, message = "O número do crachá deve ter no máximo 10 dígitos")
     private Long numeroCracha;

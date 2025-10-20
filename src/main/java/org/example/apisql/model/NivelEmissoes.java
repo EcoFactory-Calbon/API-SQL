@@ -3,7 +3,7 @@ package org.example.apisql.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "nivel_emissoes") // corrigido para bater com a tabela do banco
+@Table(name = "nivel_emissoes")
 public class NivelEmissoes {
 
     @Id

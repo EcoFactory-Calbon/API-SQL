@@ -9,7 +9,7 @@ import org.example.apisql.model.Funcionario;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.function.Function; // Importar
+import java.util.function.Function;
 
 @Component
 public class JwtUtil {
@@ -18,7 +18,7 @@ public class JwtUtil {
 
     public String generateToken(Empresa empresa) {
         return Jwts.builder()
-                .setSubject(empresa.getCnpj())
+                .setSubject(empresa.getUsername())
                 .claim("nome", empresa.getNome())
                 .claim("type", "EMPRESA")
                 .setIssuedAt(new Date())
@@ -29,9 +29,9 @@ public class JwtUtil {
 
     public String generateToken(Admin admin) {
         return Jwts.builder()
-                .setSubject(admin.getEmail())
+                .setSubject(admin.getUsername())
                 .claim("nome", admin.getNome())
-                .claim("type", "ADMIN") // <-- Adicionamos o tipo aqui
+                .claim("type", "ADMIN")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)

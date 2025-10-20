@@ -1,12 +1,10 @@
 package org.example.apisql.security;
-
-import io.jsonwebtoken.Claims; // Importar
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.apisql.service.FuncionarioDetailsService;
-import org.springframework.beans.factory.annotation.Qualifier; // Importar
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +23,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final UserDetailsService empresaDetailsService;
     private final FuncionarioDetailsService funcionarioDetailsService;
 
-    // Injetamos ambos os serviços, especificando qual é qual com @Qualifier
     public JwtRequestFilter(JwtUtil jwtUtil,
                             @Qualifier("adminDetailsService") UserDetailsService adminDetailsService,
                             @Qualifier("empresaDetailsService") UserDetailsService empresaDetailsService, FuncionarioDetailsService funcionarioDetailsService) {
@@ -48,14 +45,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             username = jwtUtil.extractUsername(jwt);
-            // Extraímos o tipo que adicionamos no token
             userType = jwtUtil.extractClaim(jwt, claims -> claims.get("type", String.class));
         }
 
         if (username != null && userType != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = null;
 
-            // Decidimos qual serviço chamar com base no tipo do token
             if ("ADMIN".equalsIgnoreCase(userType)) {
                 userDetails = adminDetailsService.loadUserByUsername(username);
             } else if ("EMPRESA".equalsIgnoreCase(userType)) {

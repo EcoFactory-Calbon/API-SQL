@@ -14,7 +14,6 @@ public class LocalizacaoRequestDTO {
 
     private String cidade;
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }

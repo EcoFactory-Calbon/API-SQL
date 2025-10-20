@@ -4,13 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.apisql.dto.AtualizarPerfilRequestDTO;
-import org.example.apisql.dto.FuncionarioDetalhesDTO;
-import org.example.apisql.dto.FuncionarioRequestDTO;
-import org.example.apisql.dto.FuncionarioResponseDTO;
+import org.example.apisql.dto.*;
 import org.example.apisql.model.Funcionario;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -120,25 +118,6 @@ public interface FuncionarioOpenApi {
             FuncionarioRequestDTO dto);
 
 
-    @Operation(
-            summary = "Atualiza parcialmente um funcionário",
-            description = "Atualiza apenas alguns campos de um funcionário existente."
-    )
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Funcionário atualizado parcialmente com sucesso",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = FuncionarioResponseDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Funcionário não encontrado")
-    })
-    ResponseEntity<FuncionarioResponseDTO> atualizarParcialmenteFuncionario(
-            @Parameter(description = "ID do funcionário a ser atualizado parcialmente", required = true, example = "1")
-            Long id,
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Campos e valores a serem atualizados",
-                    required = true,
-                    content = @Content(schema = @Schema(implementation = Map.class))
-            )
-            Map<String, Object> updates);
 
 
 
@@ -158,4 +137,49 @@ public interface FuncionarioOpenApi {
                     required = true
             )
             Map<String, Object> updates);
+
+
+    @Operation(
+            summary = "Validação de Primeiro Acesso",
+            description = "Verifica se os dados (email, crachá, código da empresa) correspondem a um funcionário pré-cadastrado que ainda precisa definir sua senha."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Validação bem-sucedida. Retorna os dados do funcionário para a próxima etapa.",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = FuncionarioResponseDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Funcionário não encontrado com os dados fornecidos.",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos ou o funcionário já completou o primeiro acesso.",
+                    content = @Content)
+    })
+    ResponseEntity<FuncionarioResponseDTO> validarPrimeiroAcesso(
+            @RequestBody(
+                    description = "Dados para validação do primeiro acesso.",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = PrimeiroAcessoRequestDTO.class))
+            )
+            PrimeiroAcessoRequestDTO dto);
+
+    @Operation(
+            summary = "Define a Senha do Primeiro Acesso",
+            description = "Permite que um funcionário, após ser validado, defina sua senha pela primeira vez. Esta ação completa o processo de cadastro e desativa o fluxo de primeiro acesso para este usuário."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Senha definida e cadastro finalizado com sucesso.",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Funcionário não encontrado com o número do crachá informado.",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Senha inválida (ex: muito curta) ou operação não permitida.",
+                    content = @Content)
+    })
+    ResponseEntity<Void> definirSenha(
+            @Parameter(description = "Número do crachá do funcionário que está definindo a senha.", required = true, example = "123456")
+            Long numeroCracha,
+
+            @RequestBody(
+                    description = "Objeto contendo a nova senha a ser definida.",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = DefinirSenhaRequestDTO.class))
+            )
+            DefinirSenhaRequestDTO dto);
 }

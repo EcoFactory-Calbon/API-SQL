@@ -32,7 +32,6 @@ public class FuncionarioController implements FuncionarioOpenApi {
         return ResponseEntity.ok(funcionarioService.buscarPorCracha(cracha));
     }
 
-    // MUDANÇA AQUI: O parâmetro do @PathVariable agora é Integer
     @GetMapping("/buscarEmpresa/{id}")
     public ResponseEntity<List<FuncionarioDetalhesDTO>> buscarEmpresa(@PathVariable Integer id) {
         return ResponseEntity.ok(funcionarioService.buscarPorEmpresa(id));
@@ -56,12 +55,6 @@ public class FuncionarioController implements FuncionarioOpenApi {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/atualizar/{id}")
-    public ResponseEntity<FuncionarioResponseDTO> atualizarParcialmenteFuncionario(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
-        FuncionarioResponseDTO response = funcionarioService.atualizarFuncionarioParcialmente(updates, id);
-        return ResponseEntity.ok(response);
-    }
-
 
     @PatchMapping("/AtualizarPerfil")
     public ResponseEntity<FuncionarioResponseDTO> atualizarPerfil(
@@ -72,5 +65,17 @@ public class FuncionarioController implements FuncionarioOpenApi {
 
         FuncionarioResponseDTO response = funcionarioService.atualizarPerfil(numeroCracha, updates);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/primeiroAcesso")
+    public ResponseEntity<FuncionarioResponseDTO> validarPrimeiroAcesso(@RequestBody @Valid PrimeiroAcessoRequestDTO dto) {
+        FuncionarioResponseDTO response = funcionarioService.primeiroAcesso(dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/primeiroAcesso/definirSenha/{numeroCracha}")
+    public ResponseEntity<Void> definirSenha(@PathVariable Long numeroCracha, @RequestBody @Valid DefinirSenhaRequestDTO dto) {
+        funcionarioService.definirSenha(numeroCracha, dto);
+        return ResponseEntity.ok().build();
     }
 }
