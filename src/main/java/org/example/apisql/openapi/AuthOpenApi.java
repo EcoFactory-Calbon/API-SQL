@@ -49,12 +49,12 @@ public interface AuthOpenApi {
 
 
     @Operation(summary = "Autentica um Funcionário",
-            description = "Valida as credenciais (Número do Crachá e senha) de um funcionário e, em caso de sucesso, gera um token de acesso JWT.")
+            description = "Valida as credenciais (Email e senha) de um funcionário e, em caso de sucesso, gera um token de acesso JWT.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Login do funcionário realizado com sucesso",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = LoginFuncionarioResponse.class))),
-            @ApiResponse(responseCode = "401", description = "Não autorizado. Crachá ou senha inválidos",
+            @ApiResponse(responseCode = "401", description = "Não autorizado. Email ou senha inválidos",
                     content = @Content)
     })
     ResponseEntity<LoginFuncionarioResponse> loginFuncionario(

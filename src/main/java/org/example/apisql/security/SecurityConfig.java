@@ -5,6 +5,7 @@ import org.example.apisql.service.EmpresaDetailsService;
 import org.example.apisql.service.FuncionarioDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -48,6 +49,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/admin/**", "/localizacao/**", "/categoria-pergunta/**", "/empresa/**", "/nivelEmissao/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/funcionario/buscarEmpresa/**", "/empresa/**").hasAuthority("ROLE_EMPRESA")
+                        .requestMatchers("/funcionario/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPRESA", "ROLE_FUNCIONARIO")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -100,7 +102,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 
     @Bean

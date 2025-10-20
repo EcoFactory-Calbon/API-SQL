@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
@@ -14,5 +15,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
             nativeQuery = true)
     List<FuncionarioDetalhesDTO> findFuncionariosByEmpresaId(@Param("idEmpresa") Integer idEmpresa);
 
+    Optional<Funcionario> findByEmail(String email);
 
 }

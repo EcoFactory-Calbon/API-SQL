@@ -52,9 +52,10 @@ public class AuthService {
     }
 
 
-    public LoginFuncionarioResponse autenticarFuncionario(Long numeroCracha, String senha) {
-        var funcionario = funcionarioRepository.findById(numeroCracha)
-                .orElseThrow(() -> new UsernameNotFoundException("Funcionário não encontrado com o crachá: " + numeroCracha));
+    public LoginFuncionarioResponse autenticarFuncionario(String email, String senha) {
+        var funcionario = funcionarioRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Funcionário não encontrado com o email: " + email));
+
         if (!passwordEncoder.matches(senha, funcionario.getSenha())) {
             throw new BadCredentialsException("Senha incorreta");
         }

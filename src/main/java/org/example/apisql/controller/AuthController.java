@@ -34,7 +34,7 @@ public class AuthController implements AuthOpenApi{
 
     @PostMapping("/funcionario/login")
     public ResponseEntity<LoginFuncionarioResponse> loginFuncionario(@RequestBody @Valid LoginFuncionarioRequest loginRequest) {
-        LoginFuncionarioResponse response = authService.autenticarFuncionario(loginRequest.getNumeroCracha(), loginRequest.getSenha());
+        LoginFuncionarioResponse response = authService.autenticarFuncionario(loginRequest.getEmail(), loginRequest.getSenha());
         return ResponseEntity.ok(response);
     }
 }

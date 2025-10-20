@@ -40,7 +40,7 @@ public class JwtUtil {
 
     public String generateToken(Funcionario funcionario) {
         return Jwts.builder()
-                .setSubject(funcionario.getEmail())
+                .setSubject(funcionario.getUsername())
                 .claim("nome", funcionario.getNome())
                 .claim("type", "FUNCIONARIO")
                 .setIssuedAt(new Date())

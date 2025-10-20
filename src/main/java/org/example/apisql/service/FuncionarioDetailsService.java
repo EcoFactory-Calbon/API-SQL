@@ -15,14 +15,8 @@ public class FuncionarioDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Long numeroCracha;
-        try {
-            numeroCracha = Long.parseLong(username);
-        } catch (NumberFormatException e) {
-            throw new UsernameNotFoundException("Número do crachá inválido: " + username);
-        }
-        return funcionarioRepository.findById(numeroCracha)
-                .orElseThrow(() -> new UsernameNotFoundException("Funcionário não encontrado com o crachá: " + numeroCracha));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return funcionarioRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Funcionário не encontrado com o email: " + email));
     }
 }

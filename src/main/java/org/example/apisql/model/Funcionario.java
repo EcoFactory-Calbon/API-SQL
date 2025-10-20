@@ -16,17 +16,18 @@ public class Funcionario implements UserDetails {
 
     private String nome;
     private String sobrenome;
+    @Column(unique = true)
     private String email;
     private String senha;
     private Long id_cargo;
     private Long id_localizacao;
     private Boolean is_gestor;
-
+    private Boolean primeiro_acesso;
 
     // --- Construtores, Getters e Setters existentes ---
     public Funcionario() {}
 
-    public Funcionario(Long numeroCracha, String nome, String sobrenome, String email, String senha, Long id_cargo, Long id_localizacao, Boolean is_gestor) {
+    public Funcionario(Long numeroCracha, String nome, String sobrenome, String email, String senha, Long id_cargo, Long id_localizacao, Boolean is_gestor, Boolean primeiro_acesso) {
         this.numeroCracha = numeroCracha;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -35,6 +36,7 @@ public class Funcionario implements UserDetails {
         this.id_cargo = id_cargo;
         this.id_localizacao = id_localizacao;
         this.is_gestor = is_gestor;
+        this.primeiro_acesso = primeiro_acesso;
     }
 
     public Long getNumeroCracha() {
@@ -101,6 +103,13 @@ public class Funcionario implements UserDetails {
         this.is_gestor = is_gestor;
     }
 
+    public Boolean getPrimeiro_acesso() {
+        return primeiro_acesso;
+    }
+
+    public void setPrimeiro_acesso(Boolean primeiro_acesso) {
+        this.primeiro_acesso = primeiro_acesso;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -114,7 +123,7 @@ public class Funcionario implements UserDetails {
 
     @Override
     public String getUsername() {
-        return String.valueOf(this.numeroCracha);
+        return this.email;
     }
 
     @Override
