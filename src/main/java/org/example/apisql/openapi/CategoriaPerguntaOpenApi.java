@@ -28,7 +28,6 @@ public interface CategoriaPerguntaOpenApi {
             responseCode = "200",
             description = "Lista de categorias retornada com sucesso",
             content = @Content(mediaType = "application/json",
-                    // Correção: Usar ArraySchema para listas
                     array = @ArraySchema(schema = @Schema(implementation = CategoriaPerguntaResponseDTO.class)))
     )
     ResponseEntity<List<CategoriaPerguntaResponseDTO>> listarCategoria();

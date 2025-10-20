@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Admin implements UserDetails { // <-- 1. Implemente a interface
+public class Admin implements UserDetails {
     @Id
     private String email;
     private String nome;

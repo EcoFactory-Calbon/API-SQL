@@ -44,7 +44,7 @@ public interface AuthOpenApi {
     })
     ResponseEntity<LoginAdminResponse> loginAdmin (
                                                    @RequestBody(description = "Credenciais do administrador para realizar a autenticação", required = true,
-                                                           content = @Content(schema = @Schema(implementation = LoginAdminRequest.class))) // <-- Corrigido aqui
+                                                           content = @Content(schema = @Schema(implementation = LoginAdminRequest.class)))
                                                    LoginAdminRequest loginRequest);
 
 

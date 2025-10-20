@@ -25,7 +25,6 @@ public class AtualizarPerfilRequestDTO {
     @Schema(description = "Novo identificador da localização do funcionário", example = "7")
     private Long id_localizacao;
 
-    // Getters e Setters
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
     public String getSobrenome() { return sobrenome; }

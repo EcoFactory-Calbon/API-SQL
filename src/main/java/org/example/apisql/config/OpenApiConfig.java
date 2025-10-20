@@ -39,9 +39,9 @@ public class OpenApiConfig {
                                 .addSecuritySchemes(securitySchemeName,
                                         new SecurityScheme()
                                                 .name(securitySchemeName)
-                                                .type(SecurityScheme.Type.HTTP) // Tipo de segurança: HTTP
-                                                .scheme("bearer") // Esquema a ser usado: Bearer Token
-                                                .bearerFormat("JWT") // Formato do token
+                                                .type(SecurityScheme.Type.HTTP)
+                                                .scheme("bearer")
+                                                .bearerFormat("JWT")
                                 )
                 );
     }

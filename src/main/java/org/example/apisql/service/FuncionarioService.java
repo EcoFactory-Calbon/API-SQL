@@ -1,10 +1,7 @@
 package org.example.apisql.service;
 
 import jakarta.validation.Valid;
-import org.example.apisql.dto.AtualizarPerfilRequestDTO;
-import org.example.apisql.dto.FuncionarioDetalhesDTO;
-import org.example.apisql.dto.FuncionarioRequestDTO;
-import org.example.apisql.dto.FuncionarioResponseDTO;
+import org.example.apisql.dto.*;
 import org.example.apisql.exception.FuncionarioNaoEncontradoException;
 import org.example.apisql.model.Funcionario;
 import org.example.apisql.repository.FuncionarioRepository;
@@ -72,7 +69,6 @@ public class FuncionarioService {
                 .collect(Collectors.toList());
     }
 
-    // MUDANÇA AQUI: O parâmetro agora é Integer
     public List<FuncionarioDetalhesDTO> buscarPorEmpresa(Integer idEmpresa){
         return funcionarioRepository.findFuncionariosByEmpresaId(idEmpresa);
     }
@@ -103,32 +99,6 @@ public class FuncionarioService {
         return toResponseDTO(atualizado);
     }
 
-
-    public FuncionarioResponseDTO atualizarFuncionarioParcialmente(Map<String, Object> updates, Long id) {
-        Funcionario existente = funcionarioRepository.findById(id)
-                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionario com o id " + id + " não foi encontrado"));
-        funcionarioPatchValidation.validar(updates);
-
-        if (updates.containsKey("nome")) {
-            existente.setNome(updates.get("nome").toString());
-        }
-        if (updates.containsKey("sobrenome")) {
-            existente.setSobrenome(updates.get("sobrenome").toString());
-        }
-        if (updates.containsKey("email")) {
-            existente.setEmail(updates.get("email").toString());
-        }
-        if (updates.containsKey("id_cargo")) {
-            existente.setId_cargo(Long.parseLong(updates.get("id_cargo").toString()));
-        }
-        if (updates.containsKey("is_gestor")) {
-            existente.setIs_gestor(Boolean.parseBoolean(updates.get("is_gestor").toString()));
-        }
-        Funcionario atualizado = funcionarioRepository.save(existente);
-        return toResponseDTO(atualizado);
-    }
-
-
     public FuncionarioResponseDTO atualizarPerfil(String email, Map<String, Object> updates) {
         Funcionario existente = funcionarioRepository.findByEmail(email)
                 .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário autenticado não encontrado com o email: " + email));
@@ -151,5 +121,32 @@ public class FuncionarioService {
 
         Funcionario atualizado = funcionarioRepository.save(existente);
         return toResponseDTO(atualizado);
+    }
+
+
+    public FuncionarioResponseDTO primeiroAcesso(PrimeiroAcessoRequestDTO dto) {
+        Funcionario funcionario = funcionarioRepository.findForPrimeiroAcesso(
+                        dto.getEmail(), dto.getNumeroCracha(), dto.getCodigoEmpresa())
+                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Dados de funcionário não encontrados ou inconsistentes."));
+
+        if (funcionario.getPrimeiro_acesso() == null || !funcionario.getPrimeiro_acesso()) {
+            throw new IllegalStateException("Este funcionário já completou o primeiro acesso.");
+        }
+
+        return toResponseDTO(funcionario);
+    }
+
+
+    public void definirSenha(Long numeroCracha, DefinirSenhaRequestDTO dto) {
+        Funcionario funcionario = funcionarioRepository.findById(numeroCracha)
+                .orElseThrow(() -> new FuncionarioNaoEncontradoException("Funcionário não encontrado."));
+
+        if (funcionario.getPrimeiro_acesso() == null || !funcionario.getPrimeiro_acesso()) {
+            throw new IllegalStateException("Operação não permitida. O primeiro acesso já foi concluído.");
+        }
+
+        funcionario.setSenha(passwordEncoder.encode(dto.getSenha()));
+        funcionario.setPrimeiro_acesso(false);
+        funcionarioRepository.save(funcionario);
     }
 }

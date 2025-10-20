@@ -87,7 +87,7 @@ public class EmpresaService {
         existente.setNome(empresaAtualizado.getNome());
         existente.setIdLocalizacao(empresaAtualizado.getIdLocalizacao());
         existente.setIdCategoria(empresaAtualizado.getIdCategoria());
-
+        existente.setSenha(passwordEncoder.encode(empresaAtualizado.getSenha()));
         Empresa atualizado = empresaRepository.save(existente);
         return toResponseDTO(atualizado);
     }

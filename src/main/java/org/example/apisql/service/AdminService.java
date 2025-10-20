@@ -22,7 +22,7 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
     private final AdminPatchValidation adminPatchValidation;
-    private final PasswordEncoder passwordEncoder; // <-- 2. Injetar o PasswordEncoder
+    private final PasswordEncoder passwordEncoder;
 
     public AdminService(AdminRepository adminRepository, AdminPatchValidation adminPatchValidation, PasswordEncoder passwordEncoder) {
         this.adminRepository = adminRepository;
