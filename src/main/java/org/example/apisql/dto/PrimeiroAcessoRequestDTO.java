@@ -17,14 +17,8 @@ public class PrimeiroAcessoRequestDTO {
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "123456")
     private Long numeroCracha;
 
-    @NotNull
-    @Schema(description = "ID numérico da empresa à qual o funcionário pertence", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    private Long codigoEmpresa;
-
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
     public Long getNumeroCracha() { return numeroCracha; }
     public void setNumeroCracha(Long numeroCracha) { this.numeroCracha = numeroCracha; }
-    public Long getCodigoEmpresa() { return codigoEmpresa; }
-    public void setCodigoEmpresa(Long codigoEmpresa) { this.codigoEmpresa = codigoEmpresa; }
 }

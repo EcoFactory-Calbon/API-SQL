@@ -24,13 +24,9 @@ public class Funcionario implements UserDetails {
     private Boolean is_gestor;
     private Boolean primeiro_acesso;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private Empresa empresa;
-
     public Funcionario() {}
 
-    public Funcionario(Long numeroCracha, String nome, String sobrenome, String email, String senha, Long id_cargo, Long id_localizacao, Boolean is_gestor, Boolean primeiro_acesso, Empresa empresa) {
+    public Funcionario(Long numeroCracha, String nome, String sobrenome, String email, String senha, Long id_cargo, Long id_localizacao, Boolean is_gestor, Boolean primeiro_acesso) {
         this.numeroCracha = numeroCracha;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -40,7 +36,6 @@ public class Funcionario implements UserDetails {
         this.id_localizacao = id_localizacao;
         this.is_gestor = is_gestor;
         this.primeiro_acesso = primeiro_acesso;
-        this.empresa = empresa;
     }
 
     public Long getNumeroCracha() {
@@ -113,14 +108,6 @@ public class Funcionario implements UserDetails {
 
     public void setPrimeiro_acesso(Boolean primeiro_acesso) {
         this.primeiro_acesso = primeiro_acesso;
-    }
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
     }
 
     @Override

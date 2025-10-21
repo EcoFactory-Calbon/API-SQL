@@ -17,11 +17,12 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 
     Optional<Funcionario> findByEmail(String email);
 
+    Optional<Funcionario> findByNumeroCracha(Long numeroCracha);
 
-    @Query("SELECT f FROM Funcionario f JOIN f.empresa e WHERE f.email = :email AND f.numeroCracha = :numeroCracha AND e.id = :codigoEmpresa")
+    @Query("SELECT f FROM Funcionario f WHERE f.email = :email AND f.numeroCracha = :numeroCracha")
     Optional<Funcionario> findForPrimeiroAcesso(
             @Param("email") String email,
-            @Param("numeroCracha") Long numeroCracha,
-            @Param("codigoEmpresa") Long codigoEmpresa
+            @Param("numeroCracha") Long numeroCracha
     );
 }
+

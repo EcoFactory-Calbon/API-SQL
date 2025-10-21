@@ -38,6 +38,7 @@ public class FuncionarioService {
         funcionario.setId_cargo(dto.getId_cargo());
         funcionario.setIs_gestor(dto.getIs_gestor());
         funcionario.setId_localizacao(dto.getId_localizacao());
+        funcionario.setPrimeiro_acesso(dto.getPrimeiro_acesso());
         return funcionario;
     }
 
@@ -63,7 +64,7 @@ public class FuncionarioService {
     }
 
     public List<FuncionarioResponseDTO> buscarPorCracha(Long numero_cracha) {
-        Optional<Funcionario> funcionarios = funcionarioRepository.findById(numero_cracha);
+        Optional<Funcionario> funcionarios = funcionarioRepository.findByNumeroCracha(numero_cracha);
         return funcionarios.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
@@ -126,7 +127,7 @@ public class FuncionarioService {
 
     public FuncionarioResponseDTO primeiroAcesso(PrimeiroAcessoRequestDTO dto) {
         Funcionario funcionario = funcionarioRepository.findForPrimeiroAcesso(
-                        dto.getEmail(), dto.getNumeroCracha(), dto.getCodigoEmpresa())
+                        dto.getEmail(), dto.getNumeroCracha())
                 .orElseThrow(() -> new FuncionarioNaoEncontradoException("Dados de funcionário não encontrados ou inconsistentes."));
 
         if (funcionario.getPrimeiro_acesso() == null || !funcionario.getPrimeiro_acesso()) {
