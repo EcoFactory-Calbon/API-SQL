@@ -46,9 +46,9 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/funcionario/primeiroAcesso/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()                        .requestMatchers("/admin/**", "/localizacao/**", "/categoria-pergunta/**", "/empresa/**", "/nivelEmissao/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/funcionario/buscarEmpresa/**", "/empresa/**").hasAuthority("ROLE_EMPRESA")
-                        .requestMatchers("/funcionario/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPRESA", "ROLE_FUNCIONARIO")
+                        .requestMatchers("/auth/**", "/funcionario/primeiroAcesso/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/admin/**", "/localizacao/**", "/categoria-pergunta/**", "/empresa/**", "/nivelEmissao/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/funcionario/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FUNCIONARIO")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

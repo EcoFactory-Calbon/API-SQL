@@ -40,6 +40,9 @@ public class FuncionarioRequestDTO {
     @Schema(description = "Define se o funcionário é gestor", example = "true")
     private Boolean is_gestor;
 
+    @Schema(description = "Define se é o primeiro acesso do funcionario", example = "true")
+    private Boolean primeiro_acesso = Boolean.TRUE;
+
     public Long getNumeroCracha() {
         return numeroCracha;
     }
@@ -94,5 +97,13 @@ public class FuncionarioRequestDTO {
     }
     public void setIs_gestor(Boolean is_gestor) {
         this.is_gestor = is_gestor;
+    }
+
+    public Boolean getPrimeiro_acesso() {
+        return primeiro_acesso;
+    }
+
+    public void setPrimeiro_acesso(Boolean primeiro_acesso) {
+        this.primeiro_acesso = primeiro_acesso;
     }
 }
