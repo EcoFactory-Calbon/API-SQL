@@ -1,5 +1,6 @@
 package org.example.apisql.service;
 
+import org.example.apisql.dto.DauRequestDTO;
 import org.example.apisql.dto.LoginAdminResponse;
 import org.example.apisql.dto.LoginEmpresaResponse;
 import org.example.apisql.dto.LoginFuncionarioResponse;
@@ -19,13 +20,15 @@ public class AuthService {
     private final FuncionarioRepository funcionarioRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final DauService dauService;
 
-    public AuthService(FuncionarioRepository funcionarioRepository,EmpresaRepository empresaRepository, AdminRepository adminRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+    public AuthService(FuncionarioRepository funcionarioRepository,EmpresaRepository empresaRepository, AdminRepository adminRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, DauService dauService) {
         this.empresaRepository = empresaRepository;
         this.adminRepository = adminRepository;
         this.funcionarioRepository = funcionarioRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
+        this.dauService = dauService;
     }
 
     public LoginEmpresaResponse autenticarEmpresa(String cnpj, String senha) {
@@ -33,7 +36,7 @@ public class AuthService {
                 .orElseThrow(() -> new UsernameNotFoundException("Empresa não encontrada"));
 
         if (!passwordEncoder.matches(senha, empresa.getSenha())) {
-            throw new RuntimeException("Senha incorreta");
+            throw new BadCredentialsException("Senha incorreta");
         }
 
         String token = jwtUtil.generateToken(empresa);
@@ -59,8 +62,14 @@ public class AuthService {
         if (!passwordEncoder.matches(senha, funcionario.getSenha())) {
             throw new BadCredentialsException("Senha incorreta");
         }
-
+        registrarAtividade(funcionario.getUsername());
         String token = jwtUtil.generateToken(funcionario);
         return new LoginFuncionarioResponse(token, funcionario.getNome(), funcionario.getNumeroCracha());
+    }
+
+    private void registrarAtividade(String email) {
+        DauRequestDTO dto = new DauRequestDTO();
+        dto.setEmail(email);
+         dauService.inserir(dto);
     }
 }
