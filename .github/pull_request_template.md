@@ -1,17 +1,4 @@
-# Título do PR
-<!-- Exemplo: [FEATURE] Criar endpoint de login para Admin -->
-
----
-
-## 🔍 Descrição
-<!-- Descreva brevemente o que foi feito neste PR -->
-- Exemplo: Implementado endpoint POST /admin/login com autenticação JWT
-- Exemplo: Corrigido bug de NullPointer ao atualizar Funcionario
-
----
-
-## 🧩 Tipo de mudança
-<!-- Marque com 'x' o que se aplica -->
+## 🧩 Tipo de Mudança
 - [ ] **Feat** (nova funcionalidade)
 - [ ] **Fix** (correção de bug)
 - [ ] **Refactor** (refatoração de código)
@@ -21,26 +8,44 @@
 
 ---
 
-## 🔗 Issues relacionadas
-<!-- Link para issues ou tickets relacionados, se houver -->
-- Exemplo: Closes #23
+## 🔍 Descrição da PR
+...
 
 ---
 
-## ✅ Checklist
-<!-- Marque com 'x' o que foi feito -->
-- [ ] Código segue as boas práticas do projeto
-- [ ] Testes adicionados ou atualizados
-- [ ] Documentação atualizada (README, Swagger, etc.)
-- [ ] Build passou localmente
+## 🔗 Issues Relacionadas
+- Ex: Closes #23
 
 ---
 
-## 🚀 Como testar
-<!-- Passos para testar as alterações localmente -->
-1. Rodar aplicação Spring Boot
-2. Acessar endpoints criados ou alterados
-3. Verificar logs e respostas esperadas
+## ✅ Checklist de Qualidade
+
+* [ ] Meu código segue as diretrizes de estilo deste projeto.
+* [ ] Eu realizei uma auto-revisão (self-review) do meu próprio código.
+* [ ] Eu testei esta mudança **localmente** e ela funciona como esperado.
+* [ ] A documentação do Swagger foi atualizada (se aplicável).
 
 ---
 
+## 🔐 Checklist de Segurança (Spring Security)
+
+* [ ] **Não aplicável:** Minha mudança não toca em endpoints ou lógica de autenticação.
+* [ ] **Aplicável:** Eu verifiquei os endpoints alterados:
+    * [ ] Acesso **COM** autenticação (Token JWT) -> Funciona como esperado.
+    * [ ] Acesso **SEM** autenticação -> Retorna 401/403 (Unauthorized/Forbidden) como esperado.
+
+---
+
+## 🌎 Checklist de Produção (Render)
+
+* [ ] **NENHUMA** nova variável de ambiente é necessária no Render.
+* [ ] **ALERTA!** As seguintes variáveis de ambiente precisam ser **adicionadas** ou **atualizadas** no dashboard do Render **ANTES** de fazer o merge deste PR:
+    * `[NOME_DA_VARIAVEL_1]`
+
+---
+
+## 🧪 Como Testar (Passos para Reprodução)
+
+1. Entre inicialize a aplicação e entre pelo ambiente local, ou entre no link do Render `https://api-sql-pdlt.onrender.com/swagger-ui/index.html`
+2. No Swagger, vá para a parte de Autenticação e faça o Login
+3. Depois com o login feito, vai retornar o token, com o token você vai para a parte superior em Authorize e adicione o token
