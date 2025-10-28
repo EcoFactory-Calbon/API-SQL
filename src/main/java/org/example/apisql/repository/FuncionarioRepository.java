@@ -13,7 +13,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 
     @Query(value = "SELECT numero_cracha, nome, sobrenome, email, cargo, setor FROM fn_listar_funcionarios_empresa_cnpj(:cnpj)",
             nativeQuery = true)
-    List<FuncionarioDetalhesDTO> findFuncionariosByCnpj(@Param("idEmpresa") String cnpj);
+    List<FuncionarioDetalhesDTO> findFuncionarioByCnpj(@Param("cnpj") String cnpj);
 
     Optional<Funcionario> findByEmail(String email);
 
