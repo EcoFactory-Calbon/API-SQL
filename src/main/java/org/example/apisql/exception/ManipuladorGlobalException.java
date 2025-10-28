@@ -41,11 +41,6 @@ public class ManipuladorGlobalException {
                 .body("Nivel_Emissao não encontrado "+ex.getMessage());
     }
 
-    @ExceptionHandler(CategoriaPerguntaNaoEncontradaException.class)
-    public ResponseEntity<String> manipuladorCategoriaPerguntaNaoEncontradaException(CategoriaPerguntaNaoEncontradaException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("CategoriaPergunta não encontrada "+ex.getMessage());
-    }
 
     @ExceptionHandler(LocalizacaoNaoEncontradaException.class)
     public ResponseEntity<String> manipuladorLocalizacaoNaoEncontradaException(LocalizacaoNaoEncontradaException ex) {

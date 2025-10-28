@@ -71,7 +71,7 @@ public class FuncionarioService {
     }
 
     public List<FuncionarioDetalhesDTO> buscarPorEmpresa(String cnpj){
-        return funcionarioRepository.findFuncionariosByCnpj(cnpj);
+        return funcionarioRepository.findFuncionarioByCnpj(cnpj);
     }
 
     public FuncionarioResponseDTO inserirFuncionario(FuncionarioRequestDTO dto) {
