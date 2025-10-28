@@ -49,7 +49,7 @@ public interface FuncionarioOpenApi {
 
     @Operation(
             summary = "Buscar funcionários por empresa",
-            description = "Retorna uma lista detalhada de funcionários que pertencem à empresa especificada pelo ID."
+            description = "Retorna uma lista detalhada de funcionários que pertencem à empresa especificada pelo CNPJ."
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Funcionários encontrados com sucesso",
@@ -61,8 +61,8 @@ public interface FuncionarioOpenApi {
                     content = @Content)
     })
     ResponseEntity<List<FuncionarioDetalhesDTO>> buscarEmpresa(
-            @Parameter(description = "ID da empresa a ser buscada", required = true, example = "10")
-            Integer id);
+            @Parameter(description = "CNPJ da empresa a ser buscada", required = true, example = "12345678901234")
+            String cnpj);
 
 
     @Operation(

@@ -10,9 +10,7 @@ public class Setor {
 
     private String nome;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_empresa", nullable = false)
-    private Empresa empresa;
+    private Long id_empresa;
 
     public Setor() {}
 
@@ -34,6 +32,6 @@ public class Setor {
         this.nome = nome;
     }
 
-    public Empresa getEmpresa() { return empresa; }
-    public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
+    public Long getId_empresa() { return id_empresa; }
+    public void setId_empresa(Long id_empresa) { this.id_empresa = id_empresa; }
 }

@@ -27,12 +27,6 @@ public class Empresa implements UserDetails {
 
     private String senha;
 
-    @OneToMany(
-            mappedBy = "empresa",         // Nome do campo em Setor
-            cascade = CascadeType.ALL,    // ESSENCIAL para deletar em cascata
-            orphanRemoval = true          // ESSENCIAL para deletar órfãos
-    )
-    private List<Setor> setores = new ArrayList<>();
 
     public Empresa() {}
 
@@ -61,9 +55,6 @@ public class Empresa implements UserDetails {
 
     public String getSenha() { return senha; }
     public void setSenha(String senha) { this.senha = senha; }
-
-    public List<Setor> getSetores() { return setores; }
-    public void setSetores(List<Setor> setores) { this.setores = setores; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

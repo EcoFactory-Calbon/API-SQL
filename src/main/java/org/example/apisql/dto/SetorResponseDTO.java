@@ -10,9 +10,11 @@ public class SetorResponseDTO {
     @JsonProperty("nome")
     private String nome;
 
+    private Long id_empresa;
     public SetorResponseDTO(Integer id, String nome, Long id_empresa) {
         this.id = id;
         this.nome = nome;
+        this.id_empresa = id_empresa;
     }
 
     public Integer getId() {
@@ -31,5 +33,11 @@ public class SetorResponseDTO {
         this.nome = nome;
     }
 
+    public Long getId_empresa() {
+        return id_empresa;
+    }
+    public void setId_empresa(Long id_empresa) {
+        this.id_empresa = id_empresa;
+    }
 
 }

@@ -30,18 +30,15 @@ public class SetorService {
     private Setor fromRequestDTO(@Valid SetorRequestDTO dto) {
         Setor setor = new Setor();
         setor.setNome(dto.getNome());
-        Empresa empresa = empresaRepository.findById(dto.getId_empresa())
-                .orElseThrow(() -> new EmpresaNaoEncontradaException("Empresa com id: " + dto.getId_empresa() + " não encontrada para associar ao setor."));
-        setor.setEmpresa(empresa);
+        setor.setId_empresa(dto.getId_empresa());
         return setor;
     }
 
     private SetorResponseDTO toResponseDTO(Setor setor) {
-        Long empresaId = (setor.getEmpresa() != null) ? setor.getEmpresa().getId() : null;
         return new SetorResponseDTO(
                 setor.getId(),
                 setor.getNome(),
-                empresaId
+                setor.getId_empresa()
         );
     }
 

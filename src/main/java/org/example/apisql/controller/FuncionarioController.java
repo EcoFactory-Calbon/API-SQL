@@ -32,9 +32,9 @@ public class FuncionarioController implements FuncionarioOpenApi {
         return ResponseEntity.ok(funcionarioService.buscarPorCracha(cracha));
     }
 
-    @GetMapping("/buscarEmpresa/{id}")
-    public ResponseEntity<List<FuncionarioDetalhesDTO>> buscarEmpresa(@PathVariable Integer id) {
-        return ResponseEntity.ok(funcionarioService.buscarPorEmpresa(id));
+    @GetMapping("/buscarEmpresa/{cnpj}")
+    public ResponseEntity<List<FuncionarioDetalhesDTO>> buscarEmpresa(@PathVariable String cnpj) {
+        return ResponseEntity.ok(funcionarioService.buscarPorEmpresa(cnpj));
     }
 
     @PostMapping("/inserir")

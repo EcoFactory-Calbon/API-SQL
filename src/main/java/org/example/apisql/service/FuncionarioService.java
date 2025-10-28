@@ -70,8 +70,8 @@ public class FuncionarioService {
                 .collect(Collectors.toList());
     }
 
-    public List<FuncionarioDetalhesDTO> buscarPorEmpresa(Integer idEmpresa){
-        return funcionarioRepository.findFuncionariosByEmpresaId(idEmpresa);
+    public List<FuncionarioDetalhesDTO> buscarPorEmpresa(String cnpj){
+        return funcionarioRepository.findFuncionariosByCnpj(cnpj);
     }
 
     public FuncionarioResponseDTO inserirFuncionario(FuncionarioRequestDTO dto) {
