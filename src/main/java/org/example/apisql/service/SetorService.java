@@ -1,29 +1,22 @@
 package org.example.apisql.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.example.apisql.dto.SetorRequestDTO;
 import org.example.apisql.dto.SetorResponseDTO;
-import org.example.apisql.exception.EmpresaNaoEncontradaException;
 import org.example.apisql.exception.SetorNaoEncontradoException;
-import org.example.apisql.model.Empresa; // Ensure this is imported
 import org.example.apisql.model.Setor;
-import org.example.apisql.repository.EmpresaRepository; // Ensure this is imported
 import org.example.apisql.repository.SetorRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class SetorService {
     private final SetorRepository setorRepository;
-    private final EmpresaRepository empresaRepository; // Needed to fetch Empresa
 
-    public SetorService(SetorRepository setorRepository, EmpresaRepository empresaRepository) {
+    public SetorService(SetorRepository setorRepository) {
         this.setorRepository = setorRepository;
-        this.empresaRepository = empresaRepository;
     }
 
 
@@ -51,7 +44,6 @@ public class SetorService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     public List<SetorResponseDTO> buscarPorNome(String nome) {
         List<Setor> setores = setorRepository.findByNome(nome);
         return setores.stream()
@@ -59,18 +51,16 @@ public class SetorService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
     public SetorResponseDTO inserirSetor(@Valid SetorRequestDTO dto) {
         Setor setor = fromRequestDTO(dto);
         Setor salvo = setorRepository.save(setor);
         return toResponseDTO(salvo);
     }
 
-    @Transactional
     public void excluirSetor(Integer id) {
-        if (!setorRepository.existsById(id)) {
-            throw new SetorNaoEncontradoException("Setor com id: "+ id +" não foi encontrado");
-        }
-        setorRepository.deleteById(id);
+        Setor setor = setorRepository.findById(id)
+                .orElseThrow(() -> new SetorNaoEncontradoException("Setor não encontrado com ID " + id + " não foi encontrado"));
+        setorRepository.delete(setor);
     }
+
 }

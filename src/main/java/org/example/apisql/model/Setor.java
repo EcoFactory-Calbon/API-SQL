@@ -1,7 +1,6 @@
 package org.example.apisql.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
 
 @Entity
 public class Setor {
@@ -14,7 +13,11 @@ public class Setor {
 
     public Setor() {}
 
-
+    public Setor(Integer id, String nome, Long id_empresa) {
+        this.id = id;
+        this.nome = nome;
+        this.id_empresa = id_empresa;
+    }
 
     public Integer getId() {
         return id;
