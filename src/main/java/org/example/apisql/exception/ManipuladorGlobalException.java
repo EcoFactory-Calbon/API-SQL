@@ -53,6 +53,12 @@ public class ManipuladorGlobalException {
                 .body("Localização não encontrada "+ex.getMessage());
     }
 
+    @ExceptionHandler(SetorNaoEncontradoException.class)
+    public ResponseEntity<String> manipuladorSetorNaoEncontradaException(SetorNaoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Setor não encontrado "+ex.getMessage());
+    }
+
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> manipulaRuntimeException(RuntimeException ex) {

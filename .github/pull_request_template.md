@@ -39,8 +39,7 @@
 ## 🌎 Checklist de Produção (Render)
 
 * [ ] **NENHUMA** nova variável de ambiente é necessária no Render.
-* [ ] **ALERTA!** As seguintes variáveis de ambiente precisam ser **adicionadas** ou **atualizadas** no dashboard do Render **ANTES** de fazer o merge deste PR:
-    * `[NOME_DA_VARIAVEL_1]`
+
 
 ---
 

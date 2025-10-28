@@ -8,6 +8,7 @@ import org.example.apisql.repository.EmpresaRepository;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -75,11 +76,13 @@ public class EmpresaService {
         return toResponseDTO(salvo);
     }
 
+    @Transactional
     public void excluirEmpresa(Long id) {
         Empresa empresa = empresaRepository.findById(id)
-                .orElseThrow(() -> new EmpresaNaoEncontradaException("Empresa com id: "+ id +" não foi encontrado"));
+                .orElseThrow(() -> new EmpresaNaoEncontradaException("Empresa com id: " + id + " não foi encontrada"));
         empresaRepository.delete(empresa);
     }
+
 
     public EmpresaResponseDTO atualizarEmpresa(@Valid EmpresaRequestDTO empresaAtualizado, Long id) {
         Empresa existente = empresaRepository.findById(id)
