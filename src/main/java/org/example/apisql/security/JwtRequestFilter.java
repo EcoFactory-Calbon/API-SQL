@@ -23,9 +23,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final UserDetailsService empresaDetailsService;
     private final FuncionarioDetailsService funcionarioDetailsService;
 
-    public JwtRequestFilter(JwtUtil jwtUtil,
-                            @Qualifier("adminDetailsService") UserDetailsService adminDetailsService,
-                            @Qualifier("empresaDetailsService") UserDetailsService empresaDetailsService, FuncionarioDetailsService funcionarioDetailsService) {
+    public JwtRequestFilter(JwtUtil jwtUtil, @Qualifier("adminDetailsService") UserDetailsService adminDetailsService, @Qualifier("empresaDetailsService") UserDetailsService empresaDetailsService, @Qualifier("funcionarioDetailsService") FuncionarioDetailsService funcionarioDetailsService) {
         this.jwtUtil = jwtUtil;
         this.adminDetailsService = adminDetailsService;
         this.empresaDetailsService = empresaDetailsService;
