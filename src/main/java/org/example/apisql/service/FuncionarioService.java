@@ -124,6 +124,36 @@ public class FuncionarioService {
         return toResponseDTO(atualizado);
     }
 
+    public FuncionarioResponseDTO atualizarFuncionarioSite(Long id, FuncionarioRequestDTO dto){
+        Funcionario existente = funcionarioRepository.findById(id)
+                .orElseThrow(() -> new FuncionarioNaoEncontradoException(
+                        "Funcionario com ID: " + id + " não foi encontrado"));
+
+        if(dto.getNumeroCracha() != null){
+            existente.setNumeroCracha(dto.getNumeroCracha());
+        }
+        if(dto.getNome() != null){
+            existente.setNome(dto.getNome());
+        }
+        if(dto.getSobrenome() != null){
+            existente.setSobrenome(dto.getSobrenome());
+        }
+        if(dto.getEmail() != null){
+            existente.setEmail(dto.getEmail());
+        }
+        if(dto.getId_localizacao() != null){
+            existente.setId_localizacao(dto.getId_localizacao());
+        }
+        if(dto.getId_cargo() != null){
+            existente.setId_cargo(dto.getId_cargo());
+        }
+        if (dto.getIs_gestor() != null){
+            existente.setIs_gestor(dto.getIs_gestor());
+        }
+        Funcionario atualizado = funcionarioRepository.save(existente);
+        return toResponseDTO(atualizado);
+    }
+
 
     public FuncionarioResponseDTO primeiroAcesso(PrimeiroAcessoRequestDTO dto) {
         Funcionario funcionario = funcionarioRepository.findForPrimeiroAcesso(

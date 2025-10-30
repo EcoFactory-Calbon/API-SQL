@@ -1,5 +1,6 @@
 package org.example.apisql.controller;
 import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import org.example.apisql.dto.*;
 import org.example.apisql.model.Funcionario;
 import org.example.apisql.openapi.FuncionarioOpenApi;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,6 +67,11 @@ public class FuncionarioController implements FuncionarioOpenApi {
 
         FuncionarioResponseDTO response = funcionarioService.atualizarPerfil(numeroCracha, updates);
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/AtualizarPorSite/{numeroCracha}")
+    public ResponseEntity<FuncionarioResponseDTO> atualizarFuncionarioSite(@PathVariable Long numeroCracha,  @RequestBody FuncionarioRequestDTO produtoRequest){
+        return ResponseEntity.ok(funcionarioService.atualizarFuncionarioSite(numeroCracha, produtoRequest));
     }
 
     @PostMapping("/primeiroAcesso")
