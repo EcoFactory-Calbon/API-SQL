@@ -49,7 +49,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**", "/funcionario/primeiroAcesso/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/admin/**", "/categoria-pergunta/**", "/nivelEmissao/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/funcionario/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FUNCIONARIO", "ROLE_EMPRESA")
-                        .requestMatchers("/empresa/**", "/localizacao/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPRESA")
+                        .requestMatchers("/empresa/**", "/localizacao/**", "/cargo/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPRESA")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

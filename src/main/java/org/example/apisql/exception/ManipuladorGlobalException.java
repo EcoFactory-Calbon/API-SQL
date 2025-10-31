@@ -54,6 +54,12 @@ public class ManipuladorGlobalException {
                 .body("Setor não encontrado "+ex.getMessage());
     }
 
+    @ExceptionHandler(CargoNaoEncontradoException.class)
+    public ResponseEntity<String> manipuladorCargoNaoEncontradaException(CargoNaoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Cargo não encontrado "+ex.getMessage());
+    }
+
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> manipulaRuntimeException(RuntimeException ex) {
