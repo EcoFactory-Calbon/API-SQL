@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
-    @Query(value = "SELECT numero_cracha, nome, sobrenome, email, cargo, setor FROM fn_listar_funcionarios_empresa_cnpj(:cnpj)",
+    @Query(value = "SELECT numero_cracha, nome, sobrenome, email, cargo, is_gestor, id_localizacao, id_cargo FROM fn_listar_funcionarios_empresa_cnpj_c(:cnpj)",
             nativeQuery = true)
     List<FuncionarioDetalhesDTO> findFuncionarioByCnpj(@Param("cnpj") String cnpj);
 
@@ -24,5 +24,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
             @Param("email") String email,
             @Param("numeroCracha") Long numeroCracha
     );
+
 }
 
